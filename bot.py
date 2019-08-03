@@ -392,15 +392,16 @@ def size(m):
     
 @bot.message_handler(commands=['me'])
 def mme(m):
-  if m.from_user.id not in ban:
-    incmsg(m.from_user.id, m.chat.id, m.message_id)
-    x=iduser.find_one({'id': m.from_user.id})
-    try:
-     bot.send_message(m.chat.id, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. За 5 вы можете купить питомца! (Команда /buypet).')
-     bot.send_message(441399484, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')                                                                                                                                     
-    except:
-        bot.send_message(m.chat.id, 'Упс! Какая-то ошибка! Наверное, вы ни разу не измеряли член! (напишите боту "член")')
-        bot.send_message(441399484, 'Упс! Какая-то ошибка! Наверное, вы ни рару не измеряли член!')                                                                                                                               
+  if m.text.lower()=='/me' or m.text.lower()=='/me@chlenomerbot':
+    if m.from_user.id not in ban:
+      incmsg(m.from_user.id, m.chat.id, m.message_id)
+      x=iduser.find_one({'id': m.from_user.id})
+      try:
+       bot.send_message(m.chat.id, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. За 5 вы можете купить питомца! (Команда /buypet).')
+       bot.send_message(441399484, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')                                                                                                                                     
+      except:
+          bot.send_message(m.chat.id, 'Упс! Какая-то ошибка! Наверное, вы ни разу не измеряли член! (напишите боту "член")')
+          bot.send_message(441399484, 'Упс! Какая-то ошибка! Наверное, вы ни рару не измеряли член!')                                                                                                                               
                                                                  
 
                 
@@ -413,10 +414,11 @@ def channel(message):
 
 @bot.message_handler(commands=['start'])
 def startms(message):
-  if message.from_user.id not in ban:
-    incmsg(message.from_user.id, message.chat.id, message.message_id)
-    if message.from_user.id==message.chat.id:
-      bot.send_message(message.from_user.id, 'Если ты здесь, то ты наверняка хочешь измерить член! Пиши /commands, чтобы узнать, на какие слова реагирует бот')
+  if m.text.lower()=='/start' or m.text.lower()=='/start@chlenomerbot':
+    if message.from_user.id not in ban:
+      incmsg(message.from_user.id, message.chat.id, message.message_id)
+      if message.from_user.id==message.chat.id:
+        bot.send_message(message.from_user.id, 'Если ты здесь, то ты наверняка хочешь измерить член! Пиши /commands, чтобы узнать, на какие слова реагирует бот')
 
 
 @bot.message_handler(commands=['info'])
@@ -439,29 +441,30 @@ def info(message):
 def ticto(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
-    bot.send_message(message.from_user.id, 'Умеет менять размер члинуса')
+    bot.send_message(message.chat.id, 'Умеет менять размер члинуса')
                      
         
 @bot.message_handler(commands=['name'])
 def name(m):
-  if m.from_user.id not in ban:
-    incmsg(m.from_user.id, m.chat.id, m.message_id)
-    player=iduser.find_one({'id':m.from_user.id})
-    if player!=None:
-        x=m.text.split('/name ')
-        if len(x)==2:
-            if len(x[1])<=40:
-                try:
-                    iduser.update_one({'id':m.from_user.id}, {'$set':{'pet.name':x[1]}})
-                    bot.send_message(m.from_user.id, 'Вы успешно переименовали питомца!')
-                except:
-                    bot.send_message(m.from_user.id, 'У вас нет питомца!')          
+  if m.text.lower()=='/name' or m.text.lower()=='/name@chlenomerbot':
+      if m.from_user.id not in ban:
+        incmsg(m.from_user.id, m.chat.id, m.message_id)
+        player=iduser.find_one({'id':m.from_user.id})
+        if player!=None:
+            x=m.text.split('/name ')
+            if len(x)==2:
+                if len(x[1])<=40:
+                    try:
+                        iduser.update_one({'id':m.from_user.id}, {'$set':{'pet.name':x[1]}})
+                        bot.send_message(m.from_user.id, 'Вы успешно переименовали питомца!')
+                    except:
+                        bot.send_message(m.from_user.id, 'У вас нет питомца!')          
+                else:
+                    bot.send_message(m.from_user.id, 'Длина имени не должна превышать 40 символов!')
             else:
-                bot.send_message(m.from_user.id, 'Длина имени не должна превышать 40 символов!')
+                bot.send_message(m.from_user.id, 'Неверный формат! Пишите в таком формате:\n'+'/name *имя*, где *имя* - имя вашего питомца.', parse_mode='markdown')
         else:
-            bot.send_message(m.from_user.id, 'Неверный формат! Пишите в таком формате:\n'+'/name *имя*, где *имя* - имя вашего питомца.', parse_mode='markdown')
-    else:
-        bot.send_message(m.from_user.id, 'Сначала напишите боту "член" хотя бы один раз!')
+            bot.send_message(m.from_user.id, 'Сначала напишите боту "член" хотя бы один раз!')
             
         
         
@@ -497,11 +500,7 @@ def buypet(m):
 def pethelp(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
-    bot.send_message(m.chat.id, 'Питомец вам нужен для участия в боях. Чтобы поучаствовать, нужно написать боту в личные сообщения команду /fight.\n'+
-                     'У питомца есть ХП, Атака, Защита, Регенерация атаки, Регенерация защиты. '+
-                     'Каждый ход вы выбираете, сколько атаки и сколько защиты поставить на раунд... И ваш питомец сражается своим членом! Каждая поставленная единица защиты заблокирует единицу атаки соперника.\n'+
-                     'Таким образом, если вы ставите 2 атаки и 3 брони, а ваш соперник - 3 атаки и 1 броню, то вы получите 0 урона, а он получит 1 урон.\n'+
-                     'Прокачка питомца сейчас недоступна, но в будущем появится!'
+    bot.send_message(m.chat.id, 'Питомец нахуй не нужен, но вы можете похвастаться перед друзьями, что он у вас есть.'
                     )
                              
                              
@@ -509,9 +508,10 @@ def pethelp(m):
                              
 @bot.message_handler(commands=['commands'])
 def commessage(message):
-  if message.from_user.id not in ban:
-    incmsg(message.from_user.id, message.chat.id, message.message_id)
-    bot.send_message(message.chat.id, 'Все фразы, связанные со словом "член"')
+  if m.text.lower()=='/commands' or m.text.lower()=='/commands@chlenomerbot':
+    if message.from_user.id not in ban:
+      incmsg(message.from_user.id, message.chat.id, message.message_id)
+      bot.send_message(message.chat.id, 'Все фразы, связанные со словом "член"')
         
 @bot.message_handler(commands=['feedback'])
 def feedback(message):
