@@ -21,6 +21,7 @@ if pics.find_one({})==None:
     pics.insert_one({'pics':[]})
 
 ban=[667532060]
+timerr=0
 
 wait=[]
 ch=[]
@@ -556,6 +557,8 @@ def createdailyuser(id, name,username):
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
+ global timerr
+ if timerr>=5:
   m=message
   global msgcount
   global pods4et
@@ -689,11 +692,17 @@ def dailyroll():
          idgroup.update_many({}, {'$set':{'dailyroll':1}})
          idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
     
-    
+def timercheck():
+    global timerr
+    if timerr<5:
+        timerr+=1
+        t=threading.Timer(1, timercheck)
+        t.start()
 
 dailyroll()
 
 print('7777')
+timercheck()
 
 def poll():
         bot.polling(none_stop=True,timeout=600)  
