@@ -174,6 +174,7 @@ def removedailyu(m):
     
 @bot.message_handler(commands=['sendm'])
 def sendmes(message):
+    m=message
     if message.from_user.id==441399484:
         x=idgroup.find({})
         y=iduser.find({})
@@ -199,6 +200,7 @@ def sendmes(message):
         
 @bot.message_handler(commands=['sendp'])
 def sendmesssss(message):
+    m=message
     if message.from_user.id==441399484:
         y=iduser.find({})
         tex=message.text.split('/sendm')
@@ -407,6 +409,7 @@ def mme(m):
                 
 @bot.message_handler(commands=['channel'])
 def channel(message):
+  m=message
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
     bot.send_message(message.chat.id, 'Канал обновлений: @chlenomer')
@@ -414,6 +417,7 @@ def channel(message):
 
 @bot.message_handler(commands=['start'])
 def startms(message):
+  m=message
   if m.text.lower()=='/start' or m.text.lower()=='/start@chlenomerbot':
     if message.from_user.id not in ban:
       incmsg(message.from_user.id, message.chat.id, message.message_id)
@@ -423,6 +427,7 @@ def startms(message):
 
 @bot.message_handler(commands=['info'])
 def info(message):
+    m=message
     if message.from_user.id==441399484:
         group=0
         people=0
@@ -439,6 +444,7 @@ def info(message):
    
 @bot.message_handler(commands=['ti_ctochlen'])
 def ticto(message):
+  m=message
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
     bot.send_message(message.chat.id, 'Умеет менять размер члинуса')
@@ -508,6 +514,7 @@ def pethelp(m):
                              
 @bot.message_handler(commands=['commands'])
 def commessage(message):
+  m=message
   if m.text.lower()=='/commands' or m.text.lower()=='/commands@chlenomerbot':
     if message.from_user.id not in ban:
       incmsg(message.from_user.id, message.chat.id, message.message_id)
@@ -515,6 +522,7 @@ def commessage(message):
         
 @bot.message_handler(commands=['feedback'])
 def feedback(message):
+  m=message
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
     if message.from_user.username!=None:
@@ -548,6 +556,7 @@ def createdailyuser(id, name,username):
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
+  m=message
   global msgcount
   global pods4et
   if pods4et==1:
