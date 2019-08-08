@@ -406,8 +406,8 @@ def dailyr(m):
     else:
         bot.send_message(m.chat.id, 'Можно регистрироваться только в группах!')
 
-except:
- pass
+ except:
+  pass
 
 
 @bot.message_handler(commands=['usecoins'])
