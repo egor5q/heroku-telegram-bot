@@ -528,7 +528,7 @@ def name(m):
         else:
             bot.send_message(m.from_user.id, 'Сначала напишите боту "член" хотя бы один раз!')
             
-except:
+ except:
   pass        
         
      
@@ -557,7 +557,7 @@ def buypet(m):
     else:
         bot.send_message(m.chat.id, 'Сначала напишите боту "член" хотя бы раз!')
         
-except:
+ except:
   pass
         
         
@@ -598,7 +598,7 @@ def feedback(message):
     else:
         bot.send_message(314238081, message.text+"\n"+'@'+'None')
         bot.send_message(message.chat.id, 'Сообщение отправлено!')
-except:
+ except:
   pass
 
 texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... В стоячем состоянии',
