@@ -68,11 +68,15 @@ def adddsfdgeh(m):
   
 @bot.message_handler(content_types=['photo'])
 def imgg(m):
+  try:
     bot.send_photo(441399484, m.photo[0].file_id, caption=str(m.caption))
     p=pics.find_one({})
     if m.photo[0].file_id not in p['pics']:
         pics.update_one({},{'$push':{'pics':m.photo[0].file_id}})
     
+  except:
+    pass
+
 
 @bot.message_handler(commands=['rpic'])
 def picc(m):
@@ -118,10 +122,15 @@ def globalpeniss(m):
         iduser.update_one({'id':m.from_user.id},{'$inc':{'penisincs':0.1}})
         p=penis.find_one({})
         ps=p['penis']
-        bot.send_message(m.chat.id, 'Вы увеличили мой член на 0.1 см! Текущая длина: '+str(round(ps,2))+' см!')
-        
+        try:
+          bot.send_message(m.chat.id, 'Вы увеличили мой член на 0.1 см! Текущая длина: '+str(round(ps,2))+' см!')
+        except:
+          pass
+
+
 @bot.message_handler(commands=['id'])
 def iddd(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     if m.reply_to_message!=None:
@@ -130,22 +139,34 @@ def iddd(m):
     else:
         bot.send_message(m.chat.id, 'Чтобы узнать id пользователя, введите эту команду, ответив на его сообщение.')
 
+ except:
+  pass
+
+
 @bot.message_handler(commands=['chatid'])
 def chatid(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     bot.send_message(m.chat.id, 'Айди чата: `'+str(m.chat.id)+'`', parse_mode='markdown')
-    
+ except:
+  pass
     
         
 @bot.message_handler(commands=['donate'])
 def donatemes(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     bot.send_message(m.chat.id, 'Если вам нравится бот и вы хотите поддержать разработчика, переводите деньги на карту:\n`5336 6900 5562 4037`\nЗаранее благодарю)', parse_mode='markdown')
+ except:
+  pass
+
+
 
 @bot.message_handler(commands=['removedailyuser'])
 def removedailyu(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     pass
@@ -171,6 +192,10 @@ def removedailyu(m):
     else:
         bot.send_message(m.chat.id, 'Вы не админ чата!')
     
+ except:
+  pass
+
+
     
     
 @bot.message_handler(commands=['sendm'])
@@ -217,6 +242,7 @@ def sendmesssss(message):
 
 @bot.message_handler(commands=['elita']) 
 def elit(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     if m.from_user.id in elita:
@@ -224,7 +250,8 @@ def elit(m):
         Kb.add(types.KeyboardButton("Член"))
         Kb.add(types.KeyboardButton("Хер"))
         bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=Kb)
-    
+ except:
+  pass
     
 #@bot.message_handler(commands=['update'])
 #def upd(m):
@@ -243,6 +270,7 @@ def elit(m):
             
 @bot.message_handler(commands=['stoyak'])
 def biggest(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     if m.from_user.id!=m.chat.id:
@@ -266,13 +294,20 @@ def biggest(m):
         else:
             bot.send_message(m.chat.id, 'Сначала напишите в группу что-нибудь!')
         
+ except:
+  pass
+
+
 def turn2(id):
+ try:
     bot.send_message(id, 'Сканирую каждый член, не двигайтесь...')
     t=threading.Timer(2, turn3, args=[id])
     t.start()
-    
+ except:
+  pass
     
 def turn3(id):
+ try:
     x=idgroup.find_one({'id':id})
     lst=[]
     for ids in x['topdaily']:
@@ -304,11 +339,13 @@ def turn3(id):
         bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя:\n\n'+name+' (@'+username+')!')
     else:
         bot.send_message(id, 'В этой группе на ежедневный розыгрыш не зарегистрировано ни одного пользователя!')
-
+ except:
+  pass
     
     
 @bot.message_handler(commands=['topchlens'])
 def topchlen(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     x=idgroup.find_one({'id':m.chat.id})
@@ -338,13 +375,15 @@ def topchlen(m):
 
         bot.send_message(441399484, 'Топ-10 пользователей, чей член больше всего раз был замечен в стоячем состоянии:\n\n'+text)
 
-                
+ except:
+  pass                
                 
                         
                        
     
 @bot.message_handler(commands=['dailychlenreg'])
 def dailyr(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     if m.from_user.id!=m.chat.id:
@@ -367,16 +406,22 @@ def dailyr(m):
     else:
         bot.send_message(m.chat.id, 'Можно регистрироваться только в группах!')
 
+except:
+ pass
+
 
 @bot.message_handler(commands=['usecoins'])
 def usecoins(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     bot.send_message(m.chat.id, '@petwarbot - тут можно подраться своим питомцем')
-    
+ except:
+  pass
     
 @bot.message_handler(commands=['mysize'])
 def size(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     x=iduser.find_one({'id':m.from_user.id})
@@ -390,11 +435,13 @@ def size(m):
         bot.send_message(441399484, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз(а)!')
     except:
         bot.send_message(m.chat.id, 'Измерьте член хотя бы 1 раз!')
-                        
+ except:
+  pass                        
     
     
 @bot.message_handler(commands=['me'])
 def mme(m):
+ try:
   if m.text.lower()=='/me' or m.text.lower()=='/me@chlenomerbot':
     if m.from_user.id not in ban:
       incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -405,26 +452,31 @@ def mme(m):
       except:
           bot.send_message(m.chat.id, 'Упс! Какая-то ошибка! Наверное, вы ни разу не измеряли член! (напишите боту "член")')
           bot.send_message(441399484, 'Упс! Какая-то ошибка! Наверное, вы ни рару не измеряли член!')                                                                                                                               
-                                                                 
+ except:
+  pass                                                                
 
                 
 @bot.message_handler(commands=['channel'])
 def channel(message):
+ try:
   m=message
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
     bot.send_message(message.chat.id, 'Канал обновлений: @chlenomer')
-                     
+ except:
+  pass                   
 
 @bot.message_handler(commands=['start'])
 def startms(message):
+ try:
   m=message
   if m.text.lower()=='/start' or m.text.lower()=='/start@chlenomerbot':
     if message.from_user.id not in ban:
       incmsg(message.from_user.id, message.chat.id, message.message_id)
       if message.from_user.id==message.chat.id:
         bot.send_message(message.from_user.id, 'Если ты здесь, то ты наверняка хочешь измерить член! Пиши /commands, чтобы узнать, на какие слова реагирует бот')
-
+ except:
+  pass
 
 @bot.message_handler(commands=['info'])
 def info(message):
@@ -445,14 +497,17 @@ def info(message):
    
 @bot.message_handler(commands=['ti_ctochlen'])
 def ticto(message):
+ try:
   m=message
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
     bot.send_message(message.chat.id, 'Умеет менять размер члинуса')
-                     
+ except:
+  pass                     
         
 @bot.message_handler(commands=['name'])
 def name(m):
+ try:
   if m.text.lower()=='/name' or m.text.lower()=='/name@chlenomerbot':
       if m.from_user.id not in ban:
         incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -473,7 +528,8 @@ def name(m):
         else:
             bot.send_message(m.from_user.id, 'Сначала напишите боту "член" хотя бы один раз!')
             
-        
+except:
+  pass        
         
      
             
@@ -484,6 +540,7 @@ def medit(message_text,chat_id, message_id,reply_markup=None,parse_mode='Markdow
         
 @bot.message_handler(commands=['buypet'])
 def buypet(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     x=iduser.find_one({'id':m.from_user.id})
@@ -500,29 +557,38 @@ def buypet(m):
     else:
         bot.send_message(m.chat.id, 'Сначала напишите боту "член" хотя бы раз!')
         
-
+except:
+  pass
         
         
 @bot.message_handler(commands=['pethelp'])
 def pethelp(m):
+ try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     bot.send_message(m.chat.id, 'Питомец нахуй не нужен, но вы можете похвастаться перед друзьями, что он у вас есть.'
                     )
                              
-                             
+ except:
+  pass                             
                              
                              
 @bot.message_handler(commands=['commands'])
 def commessage(message):
+ try:
   m=message
   if m.text.lower()=='/commands' or m.text.lower()=='/commands@chlenomerbot':
     if message.from_user.id not in ban:
       incmsg(message.from_user.id, message.chat.id, message.message_id)
       bot.send_message(message.chat.id, 'Все фразы, связанные со словом "член"')
         
+ except:
+  pass
+
+
 @bot.message_handler(commands=['feedback'])
 def feedback(message):
+ try:
   m=message
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
@@ -532,7 +598,8 @@ def feedback(message):
     else:
         bot.send_message(314238081, message.text+"\n"+'@'+'None')
         bot.send_message(message.chat.id, 'Сообщение отправлено!')
-
+except:
+  pass
 
 texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... В стоячем состоянии',
       'Ваши яйца поглотили член', 'Ваш член разбил мультивселенную', 'Член в минусе', 'Ваш писюн не даёт себя измерить',
