@@ -770,7 +770,7 @@ def timercheck():
 dailyroll()
 
 print('7777')
-timercheck()
+#timercheck()
 
 def poll():
         bot.polling(none_stop=True,timeout=600)  
