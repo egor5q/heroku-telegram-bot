@@ -777,8 +777,12 @@ def poll():
         bot.polling(none_stop=True,timeout=600)  
 
 
-poll()
 
-
+while True:
+    try:
+        bot.polling(none_stop=True)
+    except Exception as e:
+        bot.send_message(441399484, 'error!') # или просто print(e) если у вас логгера нет, # или import traceback; traceback.print_exc() для печати полной инфы
+        time.sleep(15)
 
 
