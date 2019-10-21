@@ -649,7 +649,7 @@ def chlenomer(message):
         if gr['topdaily'][message.from_user.id]['name']!=message.from_user.first_name or gr['topdaily'][message.from_user.id]['username']!=message.from_user.username:
             idgroup.update_one({'id':message.chat.id},{'$set':{'topdaily.'+str(message.from_user.id)+'.name':message.from_user.first_name,'topdaily.'+str(message.from_user.id)+'.username':message.from_user.username}})
       except:
-        pass
+        bot.send_message(441399484, traceback.format_exc())
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
