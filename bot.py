@@ -784,5 +784,6 @@ while True:
     except Exception as e:
         bot.send_message(441399484, 'error!') # или просто print(e) если у вас логгера нет, # или import traceback; traceback.print_exc() для печати полной инфы
         time.sleep(15)
+        bot.send_message(441399484, traceback.format_exc())
 
         
