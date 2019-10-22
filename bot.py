@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-
-
-
-
-
 import os
 import telebot
 import time
@@ -499,4 +494,295 @@ def info(message):
         for element in y:
             people+=1
         bot.send_message(message.from_user.id, 'Группы: '+str(group)+'\n'+'Люди: '+str(people))
+        
+
+
+   
+@bot.message_handler(commands=['ti_ctochlen'])
+def ticto(message):
+ try:
+  m=message
+  if message.from_user.id not in ban:
+    incmsg(message.from_user.id, message.chat.id, message.message_id)
+    bot.send_message(message.chat.id, 'Умеет менять размер члинуса')
+ except:
+  pass                     
+        
+@bot.message_handler(commands=['name'])
+def name(m):
+ try:
+  if m.text.lower()=='/name' or m.text.lower()=='/name@chlenomerbot':
+      if m.from_user.id not in ban:
+        incmsg(m.from_user.id, m.chat.id, m.message_id)
+        player=iduser.find_one({'id':m.from_user.id})
+        if player!=None:
+            x=m.text.split('/name ')
+            if len(x)==2:
+                if len(x[1])<=40:
+                    try:
+                        iduser.update_one({'id':m.from_user.id}, {'$set':{'pet.name':x[1]}})
+                        bot.send_message(m.from_user.id, 'Вы успешно переименовали питомца!')
+                    except:
+                        bot.send_message(m.from_user.id, 'У вас нет питомца!')          
+                else:
+                    bot.send_message(m.from_user.id, 'Длина имени не должна превышать 40 символов!')
+            else:
+                bot.send_message(m.from_user.id, 'Неверный формат! Пишите в таком формате:\n'+'/name *имя*, где *имя* - имя вашего питомца.', parse_mode='markdown')
+        else:
+            bot.send_message(m.from_user.id, 'Сначала напишите боту "член" хотя бы один раз!')
+            
+ except:
+  pass        
+        
+     
+            
+def medit(message_text,chat_id, message_id,reply_markup=None,parse_mode='Markdown'):
+    return bot.edit_message_text(chat_id=chat_id,message_id=message_id,text=message_text,reply_markup=reply_markup,
+                                 parse_mode=parse_mode)
+
+        
+@bot.message_handler(commands=['buypet'])
+def buypet(m):
+ try:
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
+    x=iduser.find_one({'id':m.from_user.id})
+    if x!=None:
+      if x['pet']==None:
+        if x['chlenocoins']>=5:
+            iduser.update_one({'id':m.from_user.id}, {'$set':{'pet':petcreate()}})
+            iduser.update_one({'id':m.from_user.id}, {'$inc':{'chlenocoins':-5}})
+            bot.send_message(m.chat.id, 'Поздравляю, вы купили питомца! Подробнее об этом в /pethelp.')
+        else:
+            bot.send_message(m.chat.id, 'Не хватает членокоинов! (нужно 5)')
+      else:
+        bot.send_message(m.chat.id, 'У вас уже есть питомец!')
+    else:
+        bot.send_message(m.chat.id, 'Сначала напишите боту "член" хотя бы раз!')
+        
+ except:
+  pass
+        
+        
+@bot.message_handler(commands=['pethelp'])
+def pethelp(m):
+ try:
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
+    bot.send_message(m.chat.id, 'Питомец нахуй не нужен, но вы можете похвастаться перед друзьями, что он у вас есть.'
+                    )
+                             
+ except:
+  pass                             
+                             
+                             
+@bot.message_handler(commands=['commands'])
+def commessage(message):
+ try:
+  m=message
+  if m.text.lower()=='/commands' or m.text.lower()=='/commands@chlenomerbot':
+    if message.from_user.id not in ban:
+      incmsg(message.from_user.id, message.chat.id, message.message_id)
+      bot.send_message(message.chat.id, 'Все фразы, связанные со словом "член"')
+        
+ except:
+  pass
+
+
+@bot.message_handler(commands=['feedback'])
+def feedback(message):
+ try:
+  m=message
+  if message.from_user.id not in ban:
+    incmsg(message.from_user.id, message.chat.id, message.message_id)
+    if message.from_user.username!=None:
+      bot.send_message(314238081, message.text+"\n"+'@'+message.from_user.username)
+      bot.send_message(message.chat.id, 'Сообщение отправлено!')
+    else:
+        bot.send_message(314238081, message.text+"\n"+'@'+'None')
+        bot.send_message(message.chat.id, 'Сообщение отправлено!')
+ except:
+  pass
+
+texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... В стоячем состоянии',
+      'Ваши яйца поглотили член', 'Ваш член разбил мультивселенную', 'Член в минусе', 'Ваш писюн не даёт себя измерить',
+       'Член в астрале', 'Прислоните член к экрану, я не вижу', 'вы половой гигант!'
+      ]
+
+def createchat(chatid):
+    return{'id':chatid,
+           'dailyroll':1,
+           'todaywinner':'Поиск осуществляется в данный момент',
+           'topdaily':{ 
+           }}
+    
+def createdailyuser(id, name,username):
+    return{'id':id,
+           'name':name,
+           'username':username,
+           'dailywins':0,
+           'maxwinstreak':0,
+           'currentwinstreak':0
+           }
+
+@bot.message_handler(content_types=['text'])
+def chlenomer(message):
+# global timerr
+# if timerr>=5:
+  m=message
+  global msgcount
+  global pods4et
+  if pods4et==1:
+      msgcount+=1
+  m=message
+  if message.from_user.id not in ban and message.forward_from==None:
+    if message.chat.id<0:
+      if idgroup.find_one({'id':message.chat.id}) is None:
+        idgroup.insert_one(createchat(message.chat.id))
+      if iduser.find_one({'id':message.from_user.id}) is None:
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
+      gr=idgroup.find_one({'id':m.chat.id})
+      if str(message.from_user.id) in gr['topdaily']:
+        if gr['topdaily'][str(message.from_user.id)]['name']!=message.from_user.first_name or gr['topdaily'][str(message.from_user.id)]['username']!=message.from_user.username:
+            idgroup.update_one({'id':message.chat.id},{'$set':{'topdaily.'+str(message.from_user.id)+'.name':message.from_user.first_name,'topdaily.'+str(message.from_user.id)+'.username':message.from_user.username}})
+     
+    elif message.chat.id>0:
+        if iduser.find_one({'id':message.from_user.id}) is None:
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
+                                          
+    spisok=['член','хер','хуй','залупа','пися','пись','пенис','хуе','хуё','хуя','елда','таежный прибор','таёжный прибор','пися','огурец','огурчик','чимчима',
+           'дроч', 'писю']
+    tr=0
+    for ids in spisok:
+        if ids in m.text.lower():
+            tr=1
+    if tr==1:
+        incmsg(message.from_user.id, message.chat.id, message.message_id)
+        mega=random.randint(1,100)
+        ultramega=random.randint(1,1000)
+        hyperultramega=random.randint(1, 10000)
+        win=random.randint(1, 100000)
+        chlen=random.randint(1,100)
+        mm=random.randint(0,9)
+        randomvoice=random.randint(1,100)
+        t=0
+        if randomvoice>90:
+              text=random.choice(texts)
+              t=1
+        else:
+            replytext='Размер члена '+message.from_user.first_name+': '+str(chlen)+','+str(mm)+' см'
+            bot.send_message(message.chat.id, replytext)
+            otvet=chlen+mm/10
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'kolvo':1}})
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'summ':otvet}})
+        if mega==1:
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':1}})
+            text='Вы нашли секретное сообщение, шанс которого 1%!'+"\n"+'Есть еще секретные сообщения, шанс которых еще ниже...\nК тому же, вы получили 1 членокоин! Смотрите /me для проверки.'
+            t=1
+        if ultramega==1:
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':7}})
+            text='Вы нашли СУПЕР-СЕКРЕТНОЕ сообщение, шанс которого равен 0,1%!'+"\n"+'А ведь есть БОЛЕЕ секретные сообщения...\nК тому же, вы получили 7 членокоинов! Смотрите /me для проверки.'
+            t=1
+        if hyperultramega==1:
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':15}})
+            text='Поздравляю, вы нашли УЛЬТРА секретное сообщение, шанс которого равен 0,01%!'+"\n"+'Это предпоследний уровень секретности...\nК тому же, вы получили 15 членокоинов! Смотрите /me для проверки.'
+            t=1
+            
+        if win==1:
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':50}})
+            text='ВЫ ОЧЕНЬ ВЕЗУЧИЙ ЧЕЛОВЕК! Вы открыли САМОЕ СЕКРЕТНОЕ СООБЩЕНИЕ, шанс которого равен 0,001%!\nК тому же, вы получили 50 членокоинов! Смотрите /me для проверки.'
+            t=1
+        if t==1:
+            try:
+              bot.send_message(message.chat.id, message.from_user.first_name+', '+text)
+              t=0
+            except:
+              pass
+        
+            
+def incmsg(id, chatid, mid):
+    if iduser.find_one({'id':id})!=None:
+        iduser.update_one({'id':id},{'$inc':{'msgcount':1}})
+        user=iduser.find_one({'id':id})
+        if user['msgcount']>=20:
+            try:
+                bot.send_message(chatid, 'Членомер может принять максимум 20 сообщений от одного человека в минуту!', reply_to_message_id=mid)
+            except:
+                pass
+            ban.append(id)
+        
+    
+    
+def petcreate():
+    return{
+        'name':None,
+        'level':1,
+        'maxattack':4,
+        'maxdefence':4,
+        'attack':0,
+        'defence':0,
+        'hp':10,
+        'regenattack':1,
+        'regendefence':1,
+        'skill':None,
+        'exp':0,
+        'wons':0
+    }
+    
+    
+
+
+
+def dailyroll():
+   t=threading.Timer(60, dailyroll)
+   t.start()
+   iduser.update_many({},{'$set':{'msgcount':0}})
+   ban.clear()
+   x=time.ctime()
+   x=x.split(" ")
+   for ids in x:
+      for idss in ids:
+         if idss==':':
+            tru=ids
+   try:
+      x=tru
+      x=x.split(":")
+      y=int(x[1])
+      x=int(x[0])+3
+      if x==24 and y<=0:
+         idgroup.update_many({}, {'$set':{'dailyroll':1}})
+         idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
+   except:
+      x=tru
+      x=x.split(":")
+      y=int(x[1])
+      x=int(x[0])+3
+      if x==24 and y<=0:
+         idgroup.update_many({}, {'$set':{'dailyroll':1}})
+         idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
+    
+def timercheck():
+    global timerr
+    if timerr<5:
+        timerr+=1
+        t=threading.Timer(1, timercheck)
+        t.start()
+
+dailyroll()
+
+print('7777')
+#timercheck()
+
+def poll():
+        bot.polling(none_stop=True,timeout=600)  
+
+
+
+while True:
+    try:
+        bot.polling(none_stop=True)
+    except Exception as e:
+        bot.send_message(441399484, 'error!') # или просто print(e) если у вас логгера нет, # или import traceback; traceback.print_exc() для печати полной инфы
+        time.sleep(15)
+
         
