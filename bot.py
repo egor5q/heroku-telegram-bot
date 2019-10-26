@@ -72,7 +72,8 @@ def adddsfdgeh(m):
 @bot.message_handler(content_types=['photo'])
 def imgg(m):
   try:
-    bot.send_photo(441399484, m.photo[0].file_id, caption=str(m.caption))
+    pass
+    #bot.send_photo(441399484, m.photo[0].file_id, caption=str(m.caption))
     #p=pics.find_one({})
     #if m.photo[0].file_id not in p['pics']:
     #    pics.update_one({},{'$push':{'pics':m.photo[0].file_id}})
