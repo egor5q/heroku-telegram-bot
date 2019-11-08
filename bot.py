@@ -422,7 +422,7 @@ def usecoins(m):
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
-    bot.send_message(m.chat.id, '@petwarbot - тут можно подраться своим питомцем')
+    bot.send_message(m.chat.id, '@petwarbot - тут можно подраться своим питомцем.')
  except:
   pass
     
@@ -573,7 +573,7 @@ def pethelp(m):
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
-    bot.send_message(m.chat.id, 'Питомец нахуй не нужен, но вы можете похвастаться перед друзьями, что он у вас есть.'
+    bot.send_message(m.chat.id, '@petwarbot - бот для битвы питомцев.'
                     )
                              
  except:
