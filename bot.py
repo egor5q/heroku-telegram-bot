@@ -73,18 +73,59 @@ def adddsfdgeh(m):
             
                                              
   
-@bot.message_handler(content_types=['photo'])
-def imgg(m):
-  try:
-    pass
-    #bot.send_photo(441399484, m.photo[0].file_id, caption=str(m.caption))
-    #p=pics.find_one({})
-    #if m.photo[0].file_id not in p['pics']:
-    #    pics.update_one({},{'$push':{'pics':m.photo[0].file_id}})
-    
-  except:
-    pass
+#@bot.message_handler(content_types=['photo'])
+#def imgg(m):
+#  try:
+#    pass
+#    #bot.send_photo(441399484, m.photo[0].file_id, caption=str(m.caption))
+#    #p=pics.find_one({})
+#    #if m.photo[0].file_id not in p['pics']:
+#    #    pics.update_one({},{'$push':{'pics':m.photo[0].file_id}})
+#    
+#  except:
+#    pass
 
+
+@bot.message_handler(content_types = ['photo'])
+def sendpic(m):
+    x = iduser.find_one({'id':m.from_user.id})
+    if x['id'] == 441399484:
+        try:
+            'pic' = x['pic']
+            iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
+            bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
+        except:
+            iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
+            bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
+            
+@bot.message_handler(commands=['sendpic'])
+def sendpiiic(m):
+    if m.from_user.id == 441399484:
+      try:
+        a = iduser.find_one({'id':m.from_user.id})
+        ph = a['pic']
+        capti = m.text.split('/sendpic ')[1]
+        x=idgroup.find({})
+        y=iduser.find({})
+        usend=0
+        gsend=0
+        for one in x:
+            try:
+              bot.send_photo(one['id'], ph, caption = capti)
+              gsend+=1
+            except:
+                pass
+        for one in y:
+            try:
+              bot.send_photo(one['id'], ph, caption = capti)
+              usend+=1
+            except:
+                pass
+        bot.send_message(441399484, 'Отправлено сообщений юзерам: '+str(usend)+'\n'+
+                         'Отправлено сообщений группам: '+str(gsend))
+      except:
+        bot.send_message(441399484, traceback.format_exc())
+            
 
 @bot.message_handler(commands=['rpic'])
 def picc(m):
