@@ -91,7 +91,7 @@ def sendpic(m):
     x = iduser.find_one({'id':m.from_user.id})
     if x['id'] == 441399484:
         try:
-            'pic' = x['pic']
+            pic = x['pic']
             iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
             bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
         except:
