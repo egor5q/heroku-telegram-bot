@@ -99,6 +99,18 @@ def sendpic(m):
                 iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
                 bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
             
+            
+@bot.message_handler(commands=['curpic'])
+def cpiccc(m):
+    x = iduser.find_one({'id':m.from_user.id})
+    if x != None:
+        if x['id'] == 441399484:
+            try:
+                pic = x['pic']
+                bot.send_photo(m.chat.id, pic)
+            except:
+                pass
+            
 @bot.message_handler(commands=['sendpic'])
 def sendpiiic(m):
     if m.from_user.id == 441399484:
