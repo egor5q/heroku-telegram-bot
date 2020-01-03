@@ -86,18 +86,18 @@ def adddsfdgeh(m):
 #    pass
 
 
-@bot.message_handler(content_types = ['photo'])
-def sendpic(m):
-    x = iduser.find_one({'id':m.from_user.id})
-    if x != None:
-        if x['id'] == 441399484:
-            try:
-                pic = x['pic']
-                iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
-                bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
-            except:
-                iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
-                bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
+#@bot.message_handler(content_types = ['photo'])
+#def sendpic(m):
+#    x = iduser.find_one({'id':m.from_user.id})
+#    if x != None:
+#        if x['id'] == 441399484:
+#            try:
+#                pic = x['pic']
+#                iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
+#                bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
+#            except:
+#                iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
+#                bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
             
             
 @bot.message_handler(commands=['curpic'])
