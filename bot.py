@@ -215,10 +215,11 @@ def chatid(m):
         
 @bot.message_handler(commands=['donate'])
 def donatemes(m):
+ return
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
-    bot.send_message(m.chat.id, 'Если вам нравится бот и вы хотите поддержать разработчика, переводите деньги на карту:\n`5336 6900 5562 4037`\nЗаранее благодарю)', parse_mode='markdown')
+    bot.send_message(m.chat.id, ' вам нравится бот и вы хоти)', parse_mode='markdown')
  except:
   pass
 
