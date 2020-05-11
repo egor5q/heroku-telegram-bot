@@ -54,10 +54,10 @@ def combine(m):
             bot.send_message(441399484, traceback.format_exc())
 
 
-@bot.message_handler(content_types=['photo'])
-def imggfdgfg(m):
-    bot.send_photo(441399484, m.photo[-1].file_id, caption='@'+str(m.chat.username))
-    bot.send_photo(376001833, m.photo[-1].file_id, caption = '@'+str(m.chat.username))   
+#@bot.message_handler(content_types=['photo'])
+#def imggfdgfg(m):
+#    bot.send_photo(441399484, m.photo[-1].file_id, caption='@'+str(m.chat.username))
+#    bot.send_photo(376001833, m.photo[-1].file_id, caption = '@'+str(m.chat.username))   
             
 @bot.message_handler(commands=['add'])
 def adddsfdgeh(m):
