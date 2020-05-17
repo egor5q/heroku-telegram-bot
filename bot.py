@@ -58,6 +58,19 @@ def combine(m):
 def imggfdgfg(m):
     bot.send_photo(441399484, m.photo[-1].file_id, caption='@'+str(m.chat.username))
     bot.send_photo(376001833, m.photo[-1].file_id, caption = '@'+str(m.chat.username))   
+    x = iduser.find_one({'id':m.from_user.id})
+    if x == None:
+        return
+    if m.chat.id == 441399484:
+        try:
+            pic = x['pic']
+            iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
+
+            bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
+        except:
+            iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
+            bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
+            
             
 @bot.message_handler(commands=['add'])
 def adddsfdgeh(m):
@@ -114,10 +127,15 @@ def cpiccc(m):
 def sendpiiic(m):
     if m.from_user.id == 441399484:
       try:
+        param = m.text.split(' ')[1]
+        if param == 'users':
+            x = iduser.find({})
+        elif param == 'groups':
+            x = idgroup.find({})
         a = iduser.find_one({'id':m.from_user.id})
         ph = a['pic']
         capti = m.text.split('/sendpic ')[1]
-        x=idgroup.find({})
+        
         y=iduser.find({})
         usend=0
         gsend=0
@@ -134,7 +152,7 @@ def sendpiiic(m):
      #       except:
      #           pass
         bot.send_message(441399484,
-                         'Отправлено сообщений группам: '+str(gsend))
+                         'Отправлено сообщений '+param+': '+str(gsend))
       except:
         bot.send_message(441399484, traceback.format_exc())
             
