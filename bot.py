@@ -134,7 +134,7 @@ def sendpiiic(m):
             x = idgroup.find({})
         a = iduser.find_one({'id':m.from_user.id})
         ph = a['pic']
-        capti = m.text.split('/sendpic ')[1]
+        capti = m.text.split('/sendpic '+param+' ')[1]
         
         y=iduser.find({})
         usend=0
