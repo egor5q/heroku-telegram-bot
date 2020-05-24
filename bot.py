@@ -95,7 +95,34 @@ def addbutt(m):
         text = m.text.split('#^')[1]
         url = m.text.split('#^')[2]
     except:
-        pass
+        bot.send_message(m.chat.id, 'Error')
+        return
+    users.update_one({'id':user['id']},{'$push':{'url_buttons':[text, url]}})
+    bot.send_message(m.chat.id, text+' ('+url+')')
+    
+    
+@bot.message_handler(commands=['test_send_url'])
+def sendurl(m):
+    if m.from_user.id != 441399484:
+        return
+    user = users.find_one({'id':m.from_user.id})
+    kb = types.InlineKeyboardMarkup()
+    for ids in user['url_buttons']:
+        kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
+    bot.send_message(m.chat.id, m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
+    
+    
+@bot.message_handler(commands=['clear_url_button'])
+def addbutt(m):
+    if m.from_user.id != 441399484:
+        return
+    user = users.find_one({'id':m.from_user.id})
+    if 'url_buttons' not in user:
+        users.update_one({'id':user['id']},{'$set':{'url_buttons':[]}})
+        user = users.find_one({'id':m.from_user.id})
+    
+    users.update_one({'id':user['id']},{'$set':{'url_buttons':[]}})
+    bot.send_message(m.chat.id, 'cleared')
     
   
 #@bot.message_handler(content_types=['photo'])
