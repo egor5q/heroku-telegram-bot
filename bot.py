@@ -85,6 +85,7 @@ def adddsfdgeh(m):
        
 @bot.message_handler(commands=['add_url_button'])
 def addbutt(m):
+    print('1')
     if m.from_user.id != 441399484:
         return
     user = users.find_one({'id':m.from_user.id})
@@ -92,12 +93,14 @@ def addbutt(m):
         users.update_one({'id':user['id']},{'$set':{'url_buttons':[]}})
         user = users.find_one({'id':m.from_user.id})
     try:
+        print('2')
         text = m.text.split('#^')[1]
         url = m.text.split('#^')[2]
     except:
         bot.send_message(m.chat.id, 'Error')
         return
     users.update_one({'id':user['id']},{'$push':{'url_buttons':[text, url]}})
+    print('3')
     bot.send_message(m.chat.id, text+' ('+url+')')
     
     
