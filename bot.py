@@ -14,6 +14,7 @@ client=MongoClient(client1)
 db=client.chlenomer
 idgroup=db.ids
 iduser=db.ids_people
+users = db.ids_people
 penis=db.penis
 pics=db.pics
 if pics.find_one({})==None:
@@ -81,7 +82,21 @@ def adddsfdgeh(m):
         except:
             bot.send_message(441399484, traceback.format_exc())
             
-                                             
+       
+@bot.message_handler(commands=['add_url_button'])
+def addbutt(m):
+    if m.from_user.id != 441399484:
+        return
+    user = users.find_one({'id':m.from_user.id})
+    if 'url_buttons' not in user:
+        users.update_one({'id':user['id']},{'$set':{'url_buttons':[]}})
+        user = users.find_one({'id':m.from_user.id})
+    try:
+        text = m.text.split('#^')[1]
+        url = m.text.split('#^')[2]
+    except:
+        pass
+    
   
 #@bot.message_handler(content_types=['photo'])
 #def imgg(m):
