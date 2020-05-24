@@ -137,6 +137,31 @@ def sendurl(m):
     bot.send_message(m.chat.id,'Error')
     
     
+@bot.message_handler(func = lambda m: m.text !=None and m.text[:9] == '/send_url')
+def sendurl(m):
+  try:
+    if m.from_user.id != 441399484:
+        return
+    user = users.find_one({'id':m.from_user.id})
+    kb = types.InlineKeyboardMarkup()
+    for ids in user['url_buttons']:
+        kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
+    i = 0
+    if user['gif'] == None:
+        for ids in idgroup.find({}):
+            bot.send_message(ids['id'], m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
+            i+=1
+        bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' чатов!')
+    else:
+        for ids in idgroup.find({}):
+            bot.send_document(ids['id'], user['gif'], caption = m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
+            i+=1
+        bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' чатов!')
+
+  except:
+    bot.send_message(m.chat.id,'Error')
+    
+    
     
 @bot.message_handler(commands=['clear_url_button'])
 def addbutt(m):
