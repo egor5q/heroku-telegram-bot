@@ -71,7 +71,19 @@ def imggfdgfg(m):
             iduser.update_one({'id':x['id']},{'$set':{'pic':m.photo[0].file_id}})
             bot.send_photo(m.chat.id, iduser.find_one({'id':m.from_user.id})['pic'])
             
-            
+           
+@bot.message_handler(content_types = ['animations'])
+@bot.message_handler(content_types = ['document'])
+def animm(m):
+    if m.from_user.id != 441399484:
+        return
+    user = users.find_one({'id':m.from_user.id})
+    if 'gif' not in user:
+        users.update_one({'id':user['id']},{'$set':{'gif':None}})
+        user = users.find_one({'id':m.from_user.id})
+    users.update_one({'id':user['id']},{'$set':{'gif':m.document.file_id}})
+    bot.send_document(m.chat.id, m.document.file_id)
+        
 @bot.message_handler(commands=['add'])
 def adddsfdgeh(m):
     if m.from_user.id==441399484:
@@ -112,7 +124,14 @@ def sendurl(m):
     kb = types.InlineKeyboardMarkup()
     for ids in user['url_buttons']:
         kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
-    bot.send_message(m.chat.id, m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
+    try:
+        if user['gif'] == None:
+            bot.send_message(m.chat.id, m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
+        else:
+            bot.send_document(m.chat.id, user['gif'], caption = m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
+    except:
+        bot.send_message(m.chat.id, m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
+    
     
     
 @bot.message_handler(commands=['clear_url_button'])
