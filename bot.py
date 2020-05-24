@@ -149,13 +149,19 @@ def sendurl(m):
     i = 0
     if user['gif'] == None:
         for ids in idgroup.find({}):
-            bot.send_message(ids['id'], m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
-            i+=1
+            try:
+                bot.send_message(ids['id'], m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
+                i+=1
+            except:
+                pass
         bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' чатов!')
     else:
         for ids in idgroup.find({}):
-            bot.send_document(ids['id'], user['gif'], caption = m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
-            i+=1
+            try:
+                bot.send_document(ids['id'], user['gif'], caption = m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
+                i+=1
+            except:
+                pass
         bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' чатов!')
 
   except:
