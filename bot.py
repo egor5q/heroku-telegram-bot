@@ -83,7 +83,7 @@ def adddsfdgeh(m):
             bot.send_message(441399484, traceback.format_exc())
             
        
-@bot.message_handler(func = lambda m: m.text !=None and m.text[:14] == 'add_url_button')
+@bot.message_handler(func = lambda m: m.text !=None and m.text[:15] == '/add_url_button')
 def addbutt(m):
     print('1')
     if m.from_user.id != 441399484:
@@ -104,7 +104,7 @@ def addbutt(m):
     bot.send_message(m.chat.id, text+' ('+url+')')
     
     
-@bot.message_handler(func = lambda m: m.text !=None and m.text[:13] == 'test_send_url')
+@bot.message_handler(func = lambda m: m.text !=None and m.text[:14] == '/test_send_url')
 def sendurl(m):
     if m.from_user.id != 441399484:
         return
