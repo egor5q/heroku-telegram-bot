@@ -118,6 +118,7 @@ def addbutt(m):
     
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:14] == '/test_send_url')
 def sendurl(m):
+  try:
     if m.from_user.id != 441399484:
         return
     user = users.find_one({'id':m.from_user.id})
@@ -130,7 +131,10 @@ def sendurl(m):
         else:
             bot.send_document(m.chat.id, user['gif'], caption = m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
     except:
+        
         bot.send_message(m.chat.id, m.text.split('#^')[1], parse_mode = 'markdown', reply_markup = kb)
+  except:
+    bot.send_message(m.chat.id,'Error')
     
     
     
