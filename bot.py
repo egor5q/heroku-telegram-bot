@@ -147,7 +147,7 @@ def sendurlimg(m):
     for ids in user['url_buttons']:
         pass
         #kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
-    url = 'https://www.google.ru/url?sa=i&url=https%3A%2F%2F2krota.ru%2Fpictures%2Fkartinki-volka-na-avu-65-foto.html&psig=AOvVaw1madlebBrY1_qNAIdCji-y&ust=1590868798621000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJiwkKnu2ekCFQAAAAAdAAAAABAD'
+    url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW15fgEFRU53CitNRiE5wHBT0bnmtFiF5FFkEkGUm4HkObl2Ga&s'
     msg = '<a href = "{}">&#8204;</a>'.format(url)+m.text.split('#^')[1]
     try:
 
