@@ -145,7 +145,8 @@ def sendurlimg(m):
     user = users.find_one({'id':m.from_user.id})
     kb = types.InlineKeyboardMarkup()
     for ids in user['url_buttons']:
-        kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
+        pass
+        #kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
     url = 'https://www.google.ru/url?sa=i&url=https%3A%2F%2F2krota.ru%2Fpictures%2Fkartinki-volka-na-avu-65-foto.html&psig=AOvVaw1madlebBrY1_qNAIdCji-y&ust=1590868798621000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJiwkKnu2ekCFQAAAAAdAAAAABAD'
     msg = '<a href = "{}">&#8204;</a>'.format(url)+m.text.split('#^')[1]
     try:
@@ -153,7 +154,7 @@ def sendurlimg(m):
             bot.send_message(m.chat.id, msg, parse_mode = 'html', reply_markup = kb)
     except:
         
-        bot.send_message(m.chat.id, m.text.split('#^')[1], parse_mode = 'html', reply_markup = kb)
+        bot.send_message(m.chat.id, msg, parse_mode = 'html', reply_markup = kb)
   except:
     bot.send_message(m.chat.id,'Error')
     
