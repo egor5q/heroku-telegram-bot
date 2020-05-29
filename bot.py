@@ -145,9 +145,8 @@ def sendurlimg(m):
     user = users.find_one({'id':m.from_user.id})
     kb = types.InlineKeyboardMarkup()
     for ids in user['url_buttons']:
-        pass
-        #kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
-    url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW15fgEFRU53CitNRiE5wHBT0bnmtFiF5FFkEkGUm4HkObl2Ga&s'
+        kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
+    url = 'https://bipbap.ru/wp-content/uploads/2017/10/0_8eb56_842bba74_XL-640x400.jpg'
     msg = '<a href = "{}">&#8204;</a>'.format(url)+m.text.split('#^')[1]
     try:
 
