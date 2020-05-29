@@ -137,7 +137,7 @@ def sendurl(m):
     bot.send_message(m.chat.id,'Error')
     
     
-@bot.message_handler(func = lambda m: m.text !=None and m.text[:15] == '/add_url')
+@bot.message_handler(func = lambda m: m.text !=None and m.text[:8] == '/add_url')
 def addbutt(m):
     print('1')
     if m.from_user.id != 441399484:
