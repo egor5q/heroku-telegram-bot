@@ -137,6 +137,25 @@ def sendurl(m):
     bot.send_message(m.chat.id,'Error')
     
     
+@bot.message_handler(func = lambda m: m.text !=None and m.text[:15] == '/add_url')
+def addbutt(m):
+    print('1')
+    if m.from_user.id != 441399484:
+        return
+    user = users.find_one({'id':m.from_user.id})
+    if 'url' not in user:
+        users.update_one({'id':user['id']},{'$set':{'url':None}})
+        user = users.find_one({'id':m.from_user.id})
+    try:
+        print('2')
+        url = m.text.split('#^')[1]
+    except:
+        bot.send_message(m.chat.id, 'Error')
+        return
+    users.update_one({'id':user['id']},{'$set':{'url':url}})
+    print('3')
+    bot.send_message(m.chat.id, '('+url+')')
+    
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:14] == '/test_send_img')
 def sendurlimg(m):
   try:
@@ -146,7 +165,7 @@ def sendurlimg(m):
     kb = types.InlineKeyboardMarkup()
     for ids in user['url_buttons']:
         kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
-    url = 'https://bipbap.ru/wp-content/uploads/2017/10/0_8eb56_842bba74_XL-640x400.jpg'
+    url = user['url']
     msg = '<a href = "{}">&#8204;</a>'.format(url)+m.text.split('#^')[1]
     try:
 
@@ -154,6 +173,29 @@ def sendurlimg(m):
     except:
         
         bot.send_message(m.chat.id, msg, parse_mode = 'html', reply_markup = kb)
+  except:
+    bot.send_message(m.chat.id,'Error')
+    
+@bot.message_handler(func = lambda m: m.text !=None and m.text[:14] == '/send_img')
+def sendurlimg(m):
+  try:
+    if m.from_user.id != 441399484:
+        return
+    user = users.find_one({'id':m.from_user.id})
+    kb = types.InlineKeyboardMarkup()
+    for ids in user['url_buttons']:
+        kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
+    url = user['url']
+    msg = '<a href = "{}">&#8204;</a>'.format(url)+m.text.split('#^')[1]
+    i = 0
+    for ids in iduser.find({}):
+        try:
+
+            bot.send_message(m.chat.id, msg, parse_mode = 'html', reply_markup = kb)
+            i+=1
+        except:
+            pass
+    bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' юзеров!')
   except:
     bot.send_message(m.chat.id,'Error')
     
