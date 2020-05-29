@@ -176,7 +176,7 @@ def sendurlimg(m):
   except:
     bot.send_message(m.chat.id,'Error')
     
-@bot.message_handler(func = lambda m: m.text !=None and m.text[:14] == '/send_img')
+@bot.message_handler(func = lambda m: m.text !=None and m.text[:9] == '/send_img')
 def sendurlimg(m):
   try:
     if m.from_user.id != 441399484:
@@ -191,7 +191,7 @@ def sendurlimg(m):
     for ids in iduser.find({}):
         try:
 
-            bot.send_message(m.chat.id, msg, parse_mode = 'html', reply_markup = kb)
+            bot.send_message(ids['id'], msg, parse_mode = 'html', reply_markup = kb)
             i+=1
         except:
             pass
