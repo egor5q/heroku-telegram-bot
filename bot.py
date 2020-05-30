@@ -1009,14 +1009,20 @@ def timercheck():
         t.start()
 
 def givec():
+    i = 0
     for ids in iduser.find({}):
         if random.randint(1, 100) <= 15:
             try:
                 cs = random.randint(1, 5)
                 bot.send_message(ids['id'], 'Вы получили '+str(cs)+' членокоинов! Спасибо что держите ЛС с ботом открытым, это помогает развитию проекта.')
                 iduser.update_one({'id':ids['id']},{'$inc':{'chlenocoins':cs}})
+                i+=1
             except:
                 pass
+    try:
+        bot.send_message(441399484, '#награда получили '+str(i)+' юзеров!')
+    except:
+        pass
     threading.Timer(random.randint(2000, 5000), givec).start()
 
 dailyroll()
