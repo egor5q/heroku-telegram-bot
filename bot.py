@@ -1021,7 +1021,7 @@ def givec():
 
 dailyroll()
 
-givec()
+threading.Timer(30, givec).start()
 
 print('7777')
 #timercheck()
