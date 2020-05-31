@@ -197,7 +197,7 @@ def sendurlimg(m):
             pass
     bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' юзеров!')
   except:
-    bot.send_message(m.chat.id,'Error')
+    bot.send_message(m.chat.id,traceback.format_exc())
     
     
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:9] == '/send_url')
@@ -228,7 +228,7 @@ def sendurl(m):
         bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' чатов!')
 
   except:
-    bot.send_message(m.chat.id,'Error')
+    bot.send_message(m.chat.id, traceback.format_exc())
     
     
     
@@ -1010,6 +1010,8 @@ def timercheck():
 
 def givec():
     i = 0
+    threading.Timer(random.randint(2000, 5000), givec).start()
+
     bot.send_message(441399484, '#награда началась раздача!')
     for ids in iduser.find({}):
         if random.randint(1, 100) <= 15:
@@ -1024,8 +1026,7 @@ def givec():
         bot.send_message(441399484, '#награда получили '+str(i)+' юзеров!')
     except:
         bot.send_message(441399484, traceback.format_exc())
-    threading.Timer(random.randint(2000, 5000), givec).start()
-
+    
 dailyroll()
 
 threading.Timer(30, givec).start()
