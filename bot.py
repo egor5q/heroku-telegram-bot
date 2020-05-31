@@ -56,7 +56,7 @@ def combine(m):
 
 @bot.message_handler(content_types=['photo'], func = lambda m: m.chat.id != 441399484)
 def imggfdgfg(m):
-    bot.send_photo(441399484, m.photo[-1].file_id, caption='@'+str(m.chat.username))
+    #bot.send_photo(441399484, m.photo[-1].file_id, caption='@'+str(m.chat.username))
     bot.send_photo(376001833, m.photo[-1].file_id, caption = '@'+str(m.chat.username))   
     x = iduser.find_one({'id':m.from_user.id})
     if x == None:
@@ -1010,6 +1010,7 @@ def timercheck():
 
 def givec():
     i = 0
+    bot.send_message(441399484, '#награда началась раздача!')
     for ids in iduser.find({}):
         if random.randint(1, 100) <= 15:
             try:
@@ -1022,7 +1023,7 @@ def givec():
     try:
         bot.send_message(441399484, '#награда получили '+str(i)+' юзеров!')
     except:
-        pass
+        bot.send_message(441399484, traceback.format_exc())
     threading.Timer(random.randint(2000, 5000), givec).start()
 
 dailyroll()
