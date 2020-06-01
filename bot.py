@@ -204,6 +204,7 @@ def sendurlimg(m):
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:10] == '/send_test')
 def sendurlimg(m):
   try:
+    i = 0
     if m.from_user.id != 441399484:
         return
     user = users.find_one({'id':m.from_user.id})
