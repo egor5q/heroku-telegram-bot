@@ -1010,7 +1010,7 @@ def timercheck():
 
 def givec():
     i = 0
-    threading.Timer(random.randint(2000, 5000), givec).start()
+    threading.Timer(random.randint(5000, 10000), givec).start()
 
     bot.send_message(441399484, '#награда началась раздача!')
     for ids in iduser.find({}):
