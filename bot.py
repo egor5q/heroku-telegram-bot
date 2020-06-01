@@ -198,6 +198,37 @@ def sendurlimg(m):
     bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' юзеров!')
   except:
     bot.send_message(m.chat.id,traceback.format_exc())
+    bot.send_message(m.chat.id, str(i))
+    
+
+@bot.message_handler(func = lambda m: m.text !=None and m.text[:10] == '/send_test')
+def sendurlimg(m):
+  try:
+    if m.from_user.id != 441399484:
+        return
+    user = users.find_one({'id':m.from_user.id})
+    kb = types.InlineKeyboardMarkup()
+    for ids in user['url_buttons']:
+        kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
+    url = user['url']
+    msg = '<a href = "{}">&#8204;</a>'.format(url)+m.text.split('#^')[1]
+    i = 0
+    for ids in iduser.find({}):
+        try:
+
+            msg = bot.send_message(ids['id'], 'test', parse_mode = 'html')
+            bot.delete_message(ids['id'], msg.message_id)
+            i+=1
+            if i > 10:
+                bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' юзеров!')
+  
+                return
+        except:
+            pass
+    bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' юзеров!')
+  except:
+    bot.send_message(m.chat.id,traceback.format_exc())
+    bot.send_message(m.chat.id, str(i))
     
     
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:9] == '/send_url')
