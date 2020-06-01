@@ -214,7 +214,8 @@ def sendurlimg(m):
     url = user['url']
     msg = '<a href = "{}">&#8204;</a>'.format(url)+m.text.split('#^')[1]
     i = 0
-    for ids in iduser.find({}):
+    iuf = iduser.find({})
+    for ids in iuf:
         try:
 
             msg = bot.send_message(ids['id'], 'test', parse_mode = 'html')
