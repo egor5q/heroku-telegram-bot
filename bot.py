@@ -220,10 +220,7 @@ def sendurlimg(m):
             msg = bot.send_message(ids['id'], 'test', parse_mode = 'html')
             bot.delete_message(ids['id'], msg.message_id)
             i+=1
-            if i > 10:
-                bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' юзеров!')
-  
-                return
+            
         except:
             pass
     bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' юзеров!')
