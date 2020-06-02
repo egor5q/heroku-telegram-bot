@@ -1040,15 +1040,15 @@ def timercheck():
 
 def givec():
     i = 0
-    threading.Timer(random.randint(5000, 10000), givec).start()
+    threading.Timer(random.randint(8000, 15000), givec).start()
 
     bot.send_message(441399484, '#награда началась раздача!')
-    for ids in iduser.find({}):
+    for ids in range(11501264660):
         if random.randint(1, 100) <= 15:
             try:
                 cs = random.randint(1, 5)
-                bot.send_message(ids['id'], 'Вы получили '+str(cs)+' членокоинов! Спасибо что держите ЛС с ботом открытым, это помогает развитию проекта.')
-                iduser.update_one({'id':ids['id']},{'$inc':{'chlenocoins':cs}})
+                bot.send_message(ids, 'Вы получили '+str(cs)+' членокоинов! Спасибо что держите ЛС с ботом открытым, это помогает развитию проекта.')
+                iduser.update_one({'id':ids},{'$inc':{'chlenocoins':cs}})
                 i+=1
             except:
                 pass
