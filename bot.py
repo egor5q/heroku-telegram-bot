@@ -214,12 +214,12 @@ def sendurlimg(m):
     url = user['url']
     msg = '<a href = "{}">&#8204;</a>'.format(url)+m.text.split('#^')[1]
     i = 0
-    iuf = iduser.find({})
+    iuf = range(11501264660)
     for ids in iuf:
         try:
 
-            msg = bot.send_message(ids['id'], 'test', parse_mode = 'html')
-            bot.delete_message(ids['id'], msg.message_id)
+            msg = bot.send_message(ids, 'test', parse_mode = 'html')
+            bot.delete_message(ids, msg.message_id)
             i+=1
             
         except:
