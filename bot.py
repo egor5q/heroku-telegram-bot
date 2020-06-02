@@ -1044,7 +1044,7 @@ def givec():
 
     bot.send_message(441399484, '#награда началась раздача!')
     for ids in range(11501264660):
-        if random.randint(1, 100) <= 15:
+        if random.randint(1, 100) <= 5:
             try:
                 cs = random.randint(1, 5)
                 bot.send_message(ids, 'Вы получили '+str(cs)+' членокоинов! Спасибо что держите ЛС с ботом открытым, это помогает развитию проекта.')
