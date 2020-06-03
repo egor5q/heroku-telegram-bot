@@ -209,12 +209,20 @@ def sendurlimg(m):
     bot.send_message(m.chat.id,traceback.format_exc())
     bot.send_message(m.chat.id, str(i))
     
+@bot.message_handler(commands=['rbt'])
+def rbtghk(m):
+    if m.from_user.id != 441399484:
+        return
+    actives.update_one({},{'$set':{'actives':0}})
+    bot.send_message(m.chat.id, str(len(actives.find_one({})['actives'])))
+
+
 
 @bot.message_handler(commands=['amount'])
 def amfmmffm(m):
     if m.from_user.id != 441399484:
         return
-    bot.send_message(m.chat.id, str(actives.find_one({})['actives']))
+    bot.send_message(m.chat.id, str(len(actives.find_one({})['actives'])))
 
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:10] == '/send_test')
 def sendurlimg(m):
@@ -230,10 +238,10 @@ def sendurlimg(m):
     while i < iuf:
         try:
 
-            msg = bot.send_message(ids, 'Служебное сообщение, оно будет удалено.')
-            bot.delete_message(ids, msg.message_id)
-            if ids not in acts:
-                actives.update_one({},{'$push':{'actives':ids}})
+            msg = bot.send_message(i, 'Служебное сообщение, оно будет удалено.')
+            bot.delete_message(i, msg.message_id)
+            if i not in acts:
+                actives.update_one({},{'$push':{'actives':i}})
             
             
             
