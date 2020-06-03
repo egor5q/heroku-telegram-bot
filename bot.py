@@ -783,6 +783,7 @@ def startms(message):
 def info(message):
     m=message
     if message.from_user.id==441399484:
+      try:
         group=0
         people=0
         x=idgroup.find({})
@@ -792,7 +793,9 @@ def info(message):
         for element in y:
             people+=1
         bot.send_message(message.from_user.id, 'Группы: '+str(group)+'\n'+'Люди: '+str(people))
-        
+      except:
+        bot.send_message(441399484, traceback.format_exc())
+        bot.send_message(m.chat.id, str(group)+' groups\n'+str(people)+' users')
 
 
    
