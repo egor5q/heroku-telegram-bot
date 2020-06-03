@@ -210,6 +210,12 @@ def sendurlimg(m):
     bot.send_message(m.chat.id, str(i))
     
 
+@bot.message_handler(commands=['amount'])
+def amfmmffm(m):
+    if m.from_user.id != 441399484:
+        return
+    bot.send_message(m.chat.id, str(actives.find_one({})['actives']))
+
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:10] == '/send_test')
 def sendurlimg(m):
   try:
