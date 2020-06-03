@@ -20,6 +20,14 @@ pics=db.pics
 if pics.find_one({})==None:
     pics.insert_one({'pics':[]})
 
+numb = db.numb
+if numb.find_one({}) == None:
+    numb.insert_one({'numb':0})
+
+actives = db.actives
+if actives.find_one({}) == None:
+    actives.insert_one({'actives':[]})
+
 ban=[667532060]
 timerr=0
 
@@ -209,22 +217,28 @@ def sendurlimg(m):
         return
     user = users.find_one({'id':m.from_user.id})
     kb = types.InlineKeyboardMarkup()
-    for ids in user['url_buttons']:
-        kb.add(types.InlineKeyboardButton(text = ids[0], url = ids[1]))
-    url = user['url']
-    msg = '<a href = "{}">&#8204;</a>'.format(url)+m.text.split('#^')[1]
-    i = 0
-    iuf = range(11501264660)
-    for ids in iuf:
+    i = numb.find_one({})['numb']
+    iuf = 11501264660
+    acts = actives.find_one({})
+    while i < iuf:
         try:
 
-            msg = bot.send_message(ids, 'test', parse_mode = 'html')
+            msg = bot.send_message(ids, 'Служебное сообщение, оно будет удалено.')
             bot.delete_message(ids, msg.message_id)
-            i+=1
+            if ids not in acts:
+                actives.update_one({},{'$push':{'actives':ids}})
+            numb.update_one({},{'$set':{'numb':i}})
+            
+            
             
         except:
             pass
-    bot.send_message(m.chat.id, '#рассылка получили сообщение '+str(i)+' юзеров!')
+
+        if i%1000 == 0:
+            bot.send_message(441399484, str(i))
+        i+=1
+
+    bot.send_message(m.chat.id, '#рассылка я проверил '+str(i)+' юзеров!')
   except:
     bot.send_message(m.chat.id,traceback.format_exc())
     bot.send_message(m.chat.id, str(i))
