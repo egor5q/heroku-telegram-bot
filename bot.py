@@ -213,7 +213,7 @@ def sendurlimg(m):
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:10] == '/send_test')
 def sendurlimg(m):
   try:
-    i = 0
+    
     if m.from_user.id != 441399484:
         return
     user = users.find_one({'id':m.from_user.id})
@@ -228,7 +228,7 @@ def sendurlimg(m):
             bot.delete_message(ids, msg.message_id)
             if ids not in acts:
                 actives.update_one({},{'$push':{'actives':ids}})
-            numb.update_one({},{'$set':{'numb':i}})
+            
             
             
             
@@ -237,6 +237,7 @@ def sendurlimg(m):
 
         if i%100000 == 0:
             bot.send_message(441399484, str(i))
+        numb.update_one({},{'$set':{'numb':i}})
         i+=1
 
     bot.send_message(m.chat.id, '#рассылка я проверил '+str(i)+' юзеров!')
