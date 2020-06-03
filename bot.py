@@ -24,6 +24,7 @@ numb = db.numb
 if numb.find_one({}) == None:
     numb.insert_one({'numb':0})
 
+
 actives = db.actives
 if actives.find_one({}) == None:
     actives.insert_one({'actives':[]})
