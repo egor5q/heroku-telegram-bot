@@ -235,13 +235,15 @@ def sendurlimg(m):
     i = numb.find_one({})['numb']
     iuf = 11501264660
     acts = actives.find_one({})
+    
     while i < iuf:
         try:
-
-            msg = bot.send_message(i, 'Служебное сообщение, оно будет удалено.')
-            bot.delete_message(i, msg.message_id)
-            if i not in acts:
-                actives.update_one({},{'$push':{'actives':i}})
+            user = iduser.find_one({'id':i})
+            if user != None:
+                msg = bot.send_message(i, 'Служебное сообщение, оно будет удалено.')
+                bot.delete_message(i, msg.message_id)
+                if i not in acts:
+                    actives.update_one({},{'$push':{'actives':i}})
             
             
             
@@ -249,7 +251,7 @@ def sendurlimg(m):
         except:
             pass
 
-        if i%10000 == 0:
+        if i%100000 == 0:
             bot.send_message(441399484, str(i))
             numb.update_one({},{'$set':{'numb':i}})
         i+=1
@@ -1092,7 +1094,7 @@ def givec():
     
 dailyroll()
 
-threading.Timer(30, givec).start()
+#threading.Timer(300, givec).start()
 
 print('7777')
 #timercheck()
