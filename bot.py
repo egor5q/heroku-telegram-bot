@@ -237,7 +237,7 @@ def sendurlimg(m):
 
         if i%1000000 == 0:
             bot.send_message(441399484, str(i))
-        numb.update_one({},{'$set':{'numb':i}})
+            numb.update_one({},{'$set':{'numb':i}})
         i+=1
 
     bot.send_message(m.chat.id, '#рассылка я проверил '+str(i)+' юзеров!')
