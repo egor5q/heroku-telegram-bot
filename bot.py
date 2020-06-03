@@ -235,7 +235,7 @@ def sendurlimg(m):
         except:
             pass
 
-        if i%100000 == 0:
+        if i%1000000 == 0:
             bot.send_message(441399484, str(i))
         numb.update_one({},{'$set':{'numb':i}})
         i+=1
