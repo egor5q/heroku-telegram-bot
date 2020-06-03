@@ -213,8 +213,8 @@ def sendurlimg(m):
 def rbtghk(m):
     if m.from_user.id != 441399484:
         return
-    actives.update_one({},{'$set':{'actives':0}})
-    bot.send_message(m.chat.id, str(len(actives.find_one({})['actives'])))
+    numb.update_one({},{'$set':{'numb':0}})
+    bot.send_message(m.chat.id, 'Ez')
 
 
 
