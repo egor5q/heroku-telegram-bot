@@ -31,7 +31,7 @@ actives = db.actives
 if actives.find_one({}) == None:
     actives.insert_one({'actives':[]})
 
-ban=[667532060]
+ban=[667532060, -1001267248577]
 timerr=0
 
 wait=[]
