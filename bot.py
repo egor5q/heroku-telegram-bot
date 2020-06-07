@@ -934,7 +934,10 @@ def createdailyuser(id, name,username):
 def chlenomer(message):
 # global timerr
 # if timerr>=5:
+  
   m=message
+  if m.chat.id in ban:
+    return
   global msgcount
   global pods4et
   if pods4et==1:
