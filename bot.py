@@ -67,8 +67,6 @@ def combine(m):
 
 @bot.message_handler(content_types=['photo'], func = lambda m: m.chat.id != 441399484)
 def imggfdgfg(m):
-    #bot.send_photo(441399484, m.photo[-1].file_id, caption='@'+str(m.chat.username))
-    bot.send_photo(376001833, m.photo[-1].file_id, caption = '@'+str(m.chat.username))   
     x = iduser.find_one({'id':m.from_user.id})
     if x == None:
         return
@@ -308,18 +306,6 @@ def addbutt(m):
     users.update_one({'id':user['id']},{'$set':{'url_buttons':[]}})
     bot.send_message(m.chat.id, 'cleared')
     
-  
-#@bot.message_handler(content_types=['photo'])
-#def imgg(m):
-#  try:
-#    pass
-#    #bot.send_photo(441399484, m.photo[0].file_id, caption=str(m.caption))
-#    #p=pics.find_one({})
-#    #if m.photo[0].file_id not in p['pics']:
-#    #    pics.update_one({},{'$push':{'pics':m.photo[0].file_id}})
-#    
-#  except:
-#    pass
 
 
 @bot.message_handler(content_types = ['photo'])
@@ -381,18 +367,6 @@ def sendpiiic(m):
       except:
         bot.send_message(441399484, traceback.format_exc())
             
-
-@bot.message_handler(commands=['rpic'])
-def picc(m):
-    if m.from_user.id==197216910 or m.from_user.id==441399484 or m.from_user.id==83697884:
-        try:
-            p=random.choice(pics.find_one({})['pics'])
-        except:
-            pass
-        try:
-            bot.send_photo(m.from_user.id, p)
-        except:
-            bot.send_message(m.chat.id, 'Откройте сообщения со мной!')
             
 @bot.message_handler(commands=['update'])
 def upddd(m):
@@ -544,19 +518,6 @@ def sendmesssss(message):
                 pass
         bot.send_message(441399484, 'Отправлено сообщений юзерам: '+str(usend))
 
-
-@bot.message_handler(commands=['elita']) 
-def elit(m):
- try:
-  if m.from_user.id not in ban:
-    incmsg(m.from_user.id, m.chat.id, m.message_id)
-    if m.from_user.id in elita:
-        Kb = types.ReplyKeyboardMarkup()
-        Kb.add(types.KeyboardButton("Член"))
-        Kb.add(types.KeyboardButton("Хер"))
-        bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=Kb)
- except:
-  pass
     
 #@bot.message_handler(commands=['update'])
 #def upd(m):
