@@ -85,6 +85,8 @@ def imggfdgfg(m):
 def animm(m):
     if m.from_user.id != 441399484:
         return
+    if m.chat.id != m.from_user.id:
+        return
     user = users.find_one({'id':m.from_user.id})
     if 'gif' not in user:
         users.update_one({'id':user['id']},{'$set':{'gif':None}})
@@ -311,6 +313,8 @@ def addbutt(m):
 def sendpic(m):
     x = iduser.find_one({'id':m.from_user.id})
     if x != None:
+        if m.chat.id != m.from_user.id:
+            return
         if x['id'] == 441399484:
             try:
                 pic = x['pic']
