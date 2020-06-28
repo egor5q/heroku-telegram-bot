@@ -76,11 +76,14 @@ def getgroupp(m):
         for ids in idgroup.find({}):
             for idss in ids['topdaily']:
                 try:
-                    if ids['topdaily'][idss]['id'] == id:
+                    if idss == id:
                         bot.send_message(m.chat.id, 'Юзер найден в группе! Ожидаем сообщения оттуда...')
                         waitgroup.append({'group':ids['id'], 'user':id})
                 except:
-                    bot.send_message(m.chat.id, ids['topdaily'])
+                    try:
+                        bot.send_message(m.chat.id, ids['topdaily'])
+                    except:
+                        pass
     except:
         bot.send_message(m.chat.id, 'error!!!')
         bot.send_message(441399484, traceback.format_exc())
