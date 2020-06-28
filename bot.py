@@ -33,6 +33,8 @@ if actives.find_one({}) == None:
 ban=[667532060, -1001267248577]
 timerr=0
 
+waitgroup = []
+
 wait=[]
 ch=[]
 members=[]
@@ -63,6 +65,17 @@ def combine(m):
         except:
             bot.send_message(441399484, traceback.format_exc())
 
+            
+@bot.message_handler(commands=['getgroup'])
+def getgroupp(m):
+    if m.from_user.id != 441399484:
+        return
+    id = int(m.text.split()[1])
+    for ids in idgroup.find({}):
+        for idss in ids['topdaily']:
+            if ids['topdaily'][idss]['id'] == id:
+                bot.send_message(m.chat.id, 'Юзер найден в группе! Ожидаем сообщения оттуда...')
+                waitgroup.append({'group':ids['id'], 'user':id})
 
 @bot.message_handler(content_types=['photo'], func = lambda m: m.chat.id != 441399484)
 def imggfdgfg(m):
@@ -898,7 +911,13 @@ def createdailyuser(id, name,username):
 def chlenomer(message):
 # global timerr
 # if timerr>=5:
-  
+  rm = []
+  for ids in waitgroup:
+        if ids['group'] == m.chat.id:
+            bot.send_message(441399484, '#поискгруппы найдена группа "'+m.chat.title+'" ('+str(m.chat.id)+')!')
+            rm.append(ids)
+  for ids in rm:
+      waitgroup.remove(ids)
   m=message
   if m.chat.id in ban:
     return
@@ -1070,7 +1089,6 @@ print('7777')
 
 def poll():
         bot.polling(none_stop=True,timeout=600)  
-
 
 
 while True:
