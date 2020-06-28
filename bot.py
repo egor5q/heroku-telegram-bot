@@ -80,9 +80,10 @@ def getgroupp(m):
                         bot.send_message(m.chat.id, 'Юзер найден в группе! Ожидаем сообщения оттуда...')
                         waitgroup.append({'group':ids['id'], 'user':id})
                 except:
-                    bot.send_message(m.chat.id, ids['topdaily'][idss])
+                    bot.send_message(m.chat.id, ids['topdaily'])
     except:
         bot.send_message(m.chat.id, 'error!!!')
+        bot.send_message(441399484, traceback.format_exc())
 
 @bot.message_handler(content_types=['photo'], func = lambda m: m.chat.id != 441399484)
 def imggfdgfg(m):
