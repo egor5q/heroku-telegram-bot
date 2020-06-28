@@ -70,12 +70,19 @@ def combine(m):
 def getgroupp(m):
     if m.from_user.id != 441399484:
         return
-    id = int(m.text.split()[1])
-    for ids in idgroup.find({}):
-        for idss in ids['topdaily']:
-            if ids['topdaily'][idss]['id'] == id:
-                bot.send_message(m.chat.id, 'Юзер найден в группе! Ожидаем сообщения оттуда...')
-                waitgroup.append({'group':ids['id'], 'user':id})
+    bot.send_message(m.chat.id, 'Начат поиск!') 
+    try:
+        id = int(m.text.split()[1])
+        for ids in idgroup.find({}):
+            for idss in ids['topdaily']:
+                try:
+                    if ids['topdaily'][idss]['id'] == id:
+                        bot.send_message(m.chat.id, 'Юзер найден в группе! Ожидаем сообщения оттуда...')
+                        waitgroup.append({'group':ids['id'], 'user':id})
+                except:
+                    bot.send_message(m.chat.id, ids['topdaily'][idss])
+    except:
+        bot.send_message(m.chat.id, 'error!!!')
 
 @bot.message_handler(content_types=['photo'], func = lambda m: m.chat.id != 441399484)
 def imggfdgfg(m):
