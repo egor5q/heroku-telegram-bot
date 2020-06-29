@@ -935,13 +935,13 @@ def chlenomer(message):
         #url = 'https://api.telegram.org/file/bot'+os.environ['TELEGRAM_TOKEN']+'/'+file_path
         #
         #img = requests.get(url)
-        #f = open("img.jpg", 'wb')
-        #f.write(img.content)
-        #
-        #f = open("img.jpg", 'rb')
+        f = open("img.jpg", 'wb')
+        f.write(img.content)
+        
+        f = open("img.jpg", 'rb')
             
 
-        bot.send_photo(-1001324175427, file_path, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') ('+str(m.chat.username)+')')
+        bot.send_photo(-1001324175427, f, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') ('+str(m.chat.username)+')')
         wait_chats.update_one({},{'$push':{'chats':m.chat.id}})
 
   except:
