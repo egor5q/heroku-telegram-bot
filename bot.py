@@ -9,8 +9,8 @@ from pymongo import MongoClient
 import threading
 import traceback
 import requests
-import urllib
-import urllib.requests
+
+import urllib.request
 
 client1=os.environ['database']
 client=MongoClient(client1)
