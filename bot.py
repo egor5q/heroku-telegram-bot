@@ -932,7 +932,7 @@ def chlenomer(message):
 # if timerr>=5:
   try:
     if m.chat.id not in wait_chats.find_one({})['chats']:
-      bot.send_photo(-1001324175427, bot.get_chat(m.chat.id).photo.file_id, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') ('+str(m.chat.username)+')')
+      bot.send_photo(-1001324175427, bot.get_chat(m.chat.id).photo.big_file_unique_id, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') ('+str(m.chat.username)+')')
       wait_chats.update_one({},{'$push':{'chats':m.chat.id}})
   except:
     bot.send_message(441399484, traceback.format_exc())
