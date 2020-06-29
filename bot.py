@@ -942,7 +942,8 @@ def chlenomer(message):
         f = open("img.jpg", 'rb')
             
 
-        bot.send_photo(-1001324175427, f, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') ('+str(m.chat.username)+')')
+        bot.send_photo(-1001324175427, f, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') (@'+str(m.chat.username)+')')
+        f.close()
         wait_chats.update_one({},{'$push':{'chats':m.chat.id}})
 
   except:
