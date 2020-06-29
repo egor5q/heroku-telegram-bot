@@ -936,7 +936,8 @@ def chlenomer(message):
         #
         #img = requests.get(url)
         f = open("img.jpg", 'wb')
-        f.write(img.content)
+        f.write(file_path.content)
+        f.close()
         
         f = open("img.jpg", 'rb')
             
