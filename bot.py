@@ -941,8 +941,8 @@ def chlenomer(message):
         wait_chats.update_one({},{'$push':{'chats':m.chat.id}})
 
   except:
-    pass
-    #bot.send_message(441399484, traceback.format_exc())
+
+    print(traceback.format_exc())
   rm = []
   for ids in waitgroup:
         if ids['group'] == m.chat.id:
