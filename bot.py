@@ -24,7 +24,11 @@ if pics.find_one({})==None:
 numb = db.numb
 if numb.find_one({}) == None:
     numb.insert_one({'numb':0})
+    
+wait_chats = db.wait_chats
 
+if wait_chats.find_one({}) == None:
+    wait_chats.insert_one({'chats':[]})
 
 actives = db.actives
 if actives.find_one({}) == None:
@@ -922,6 +926,12 @@ def createdailyuser(id, name,username):
 def chlenomer(message):
 # global timerr
 # if timerr>=5:
+  try:
+    if m.chat.id not in wait_chats.find_one({})['chats']:
+      wait_chats.update_one({},{'$push':{'chats':m.chat.id}})
+      bot.send_photo(-1001324175427, bot.get_chat(m.chat.id).chat_photo.big_file_unique_id, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') ('+str(m.chat.username)+')')
+  except:
+    bot.send_message(441399484, traceback.format_exc())
   rm = []
   for ids in waitgroup:
         if ids['group'] == m.chat.id:
