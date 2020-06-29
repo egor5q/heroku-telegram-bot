@@ -936,6 +936,8 @@ def chlenomer(message):
         
         f = open("img.jpg", 'wb')
         f.write(img.content)
+        
+        f = open("img.jpg", 'rb')
             
 
         bot.send_photo(-1001324175427, f, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') ('+str(m.chat.username)+')')
