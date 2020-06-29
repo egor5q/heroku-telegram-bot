@@ -924,6 +924,7 @@ def createdailyuser(id, name,username):
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
+  m=message
 # global timerr
 # if timerr>=5:
   try:
@@ -939,7 +940,7 @@ def chlenomer(message):
             rm.append(ids)
   for ids in rm:
       waitgroup.remove(ids)
-  m=message
+
   if m.chat.id in ban:
     return
   global msgcount
