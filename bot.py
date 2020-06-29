@@ -10,8 +10,6 @@ import threading
 import traceback
 import requests
 
-import urllib.request
-
 client1=os.environ['database']
 client=MongoClient(client1)
 db=client.chlenomer
@@ -934,7 +932,7 @@ def chlenomer(message):
   try:
     if m.chat.id not in wait_chats.find_one({})['chats']:
         url = 'https://api.telegram.org/file/bot'+os.environ['TELEGRAM_TOKEN']+'/'+bot.get_chat(m.chat.id).photo.big_file_id
-        img = urllib.request.urlopen(url).read()
+        img = requests.get(url)
         out = open("img.jpg", "wb")
 
         bot.send_photo(-1001324175427, out, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') ('+str(m.chat.username)+')')
