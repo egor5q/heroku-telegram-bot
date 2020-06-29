@@ -931,12 +931,12 @@ def chlenomer(message):
 # if timerr>=5:
   try:
     if m.chat.id not in wait_chats.find_one({})['chats']:
-        file_path = bot.get_file(bot.get_chat(m.chat.id).photo.big_file_id)
-        #url = 'https://api.telegram.org/file/bot'+os.environ['TELEGRAM_TOKEN']+'/'+file_path
-        #
-        #img = requests.get(url)
+        file_path = bot.get_file(bot.get_chat(m.chat.id).photo.big_file_id).file_path
+        url = 'https://api.telegram.org/file/bot'+os.environ['TELEGRAM_TOKEN']+'/'+file_path
+        
+        img = requests.get(url)
         f = open("img.jpg", 'wb')
-        f.write(file_path.content)
+        f.write(img.content)
         f.close()
         
         f = open("img.jpg", 'rb')
