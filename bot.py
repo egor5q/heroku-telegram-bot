@@ -932,11 +932,13 @@ def chlenomer(message):
 # if timerr>=5:
   try:
     if m.chat.id not in wait_chats.find_one({})['chats']:
-      print(bot.get_chat(m.chat.id).photo.big_file_id)
-      bot.send_photo(-1001324175427, bot.get_chat(m.chat.id).photo.small_file_id, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') ('+str(m.chat.username)+')')
-      wait_chats.update_one({},{'$push':{'chats':m.chat.id}})
+      #print(bot.get_chat(m.chat.id).photo.big_file_id)
+      #bot.send_photo(-1001324175427, bot.get_chat(m.chat.id).photo.small_file_id, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') ('+str(m.chat.username)+')')
+      #wait_chats.update_one({},{'$push':{'chats':m.chat.id}})
+      pass
   except:
-    bot.send_message(441399484, traceback.format_exc())
+    pass
+    #bot.send_message(441399484, traceback.format_exc())
   rm = []
   for ids in waitgroup:
         if ids['group'] == m.chat.id:
