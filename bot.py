@@ -2,13 +2,13 @@
 import os
 import telebot
 import time
-import telebot
 import random
 from telebot import types
 from pymongo import MongoClient
 import threading
 import traceback
 import requests
+import config
 
 client1=os.environ['database']
 client=MongoClient(client1)
@@ -60,6 +60,7 @@ elita=[]
 
 @bot.message_handler(commands=['combine'])
 def combine(m):
+    config.about(m, bot)
     if m.from_user.id==441399484:
         try:
             x1=int(m.text.split(' ')[1])
@@ -74,6 +75,7 @@ def combine(m):
             
 @bot.message_handler(commands=['getgroup'])
 def getgroupp(m):
+    config.about(m, bot)
     if m.from_user.id != 441399484:
         return
     bot.send_message(m.chat.id, 'Начат поиск!') 
@@ -96,6 +98,7 @@ def getgroupp(m):
 
 @bot.message_handler(content_types=['photo'], func = lambda m: m.chat.id != 441399484)
 def imggfdgfg(m):
+    config.about(m, bot)
     x = iduser.find_one({'id':m.from_user.id})
     if x == None:
         return
@@ -113,6 +116,7 @@ def imggfdgfg(m):
 @bot.message_handler(content_types = ['animations'])
 @bot.message_handler(content_types = ['document'])
 def animm(m):
+    config.about(m, bot)
     if m.from_user.id != 441399484:
         return
     if m.chat.id != m.from_user.id:
@@ -126,6 +130,7 @@ def animm(m):
         
 @bot.message_handler(commands=['add'])
 def adddsfdgeh(m):
+    config.about(m, bot)
     if m.from_user.id==441399484:
         try:
             id=int(m.text.split(' ')[1])
@@ -137,6 +142,7 @@ def adddsfdgeh(m):
        
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:15] == '/add_url_button')
 def addbutt(m):
+    config.about(m, bot)
     print('1')
     if m.from_user.id != 441399484:
         return
@@ -158,6 +164,7 @@ def addbutt(m):
     
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:14] == '/test_send_url')
 def sendurl(m):
+  config.about(m, bot)
   try:
     if m.from_user.id != 441399484:
         return
@@ -179,6 +186,7 @@ def sendurl(m):
     
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:8] == '/add_url')
 def addbutt(m):
+    config.about(m, bot)
     print('1')
     if m.from_user.id != 441399484:
         return
@@ -198,6 +206,7 @@ def addbutt(m):
     
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:14] == '/test_send_img')
 def sendurlimg(m):
+  config.about(m, bot)
   try:
     if m.from_user.id != 441399484:
         return
@@ -218,6 +227,7 @@ def sendurlimg(m):
     
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:9] == '/send_img')
 def sendurlimg(m):
+  config.about(m, bot)
   try:
     if m.from_user.id != 441399484:
         return
@@ -242,6 +252,7 @@ def sendurlimg(m):
     
 @bot.message_handler(commands=['rbt'])
 def rbtghk(m):
+    config.about(m, bot)
     if m.from_user.id != 441399484:
         return
     numb.update_one({},{'$set':{'numb':0}})
@@ -251,12 +262,14 @@ def rbtghk(m):
 
 @bot.message_handler(commands=['amount'])
 def amfmmffm(m):
+    config.about(m, bot)
     if m.from_user.id != 441399484:
         return
     bot.send_message(m.chat.id, str(len(actives.find_one({})['actives'])))
 
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:10] == '/send_test')
 def sendurlimg(m):
+  config.about(m, bot)
   try:
     
     if m.from_user.id != 441399484:
@@ -295,6 +308,7 @@ def sendurlimg(m):
     
 @bot.message_handler(func = lambda m: m.text !=None and m.text[:9] == '/send_url')
 def sendurl(m):
+  config.about(m, bot)
   try:
     if m.from_user.id != 441399484:
         return
@@ -327,6 +341,7 @@ def sendurl(m):
     
 @bot.message_handler(commands=['clear_url_button'])
 def addbutt(m):
+    config.about(m, bot)
     if m.from_user.id != 441399484:
         return
     user = users.find_one({'id':m.from_user.id})
@@ -341,6 +356,7 @@ def addbutt(m):
 
 @bot.message_handler(content_types = ['photo'])
 def sendpic(m):
+    config.about(m, bot)
     x = iduser.find_one({'id':m.from_user.id})
     if x != None:
         if m.chat.id != m.from_user.id:
@@ -358,6 +374,7 @@ def sendpic(m):
             
 @bot.message_handler(commands=['curpic'])
 def cpiccc(m):
+    config.about(m, bot)
     x = iduser.find_one({'id':m.from_user.id})
     if x != None:
         if x['id'] == 441399484:
@@ -369,6 +386,7 @@ def cpiccc(m):
             
 @bot.message_handler(commands=['sendpic'])
 def sendpiiic(m):
+    config.about(m, bot)
     if m.from_user.id == 441399484:
       try:
         param = m.text.split(' ')[1]
@@ -403,12 +421,14 @@ def sendpiiic(m):
             
 @bot.message_handler(commands=['update'])
 def upddd(m):
+    config.about(m, bot)
     if m.from_user.id==441399484:
         iduser.update_many({}, {'$set':{'msgcount':0, 'penisincs':0}})
         bot.send_message(m.chat.id, 'updated')
 
 @bot.message_handler(commands=['count'])
 def counttt(m):
+    config.about(m, bot)
     if m.from_user.id==441399484:
         global pods4et
         pods4et=1
@@ -427,6 +447,7 @@ def ends4et(id):
 
 @bot.message_handler(commands=['globalchlen'])
 def globalpeniss(m):
+    config.about(m, bot)
     if m.from_user.id not in ban:
         incmsg(m.from_user.id, m.chat.id, m.message_id)
         penis.update_one({},{'$inc':{'penis':0.1}})
@@ -441,6 +462,7 @@ def globalpeniss(m):
 
 @bot.message_handler(commands=['id'])
 def iddd(m):
+ config.about(m, bot)
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -456,6 +478,7 @@ def iddd(m):
 
 @bot.message_handler(commands=['chatid'])
 def chatid(m):
+ config.about(m, bot)
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -466,6 +489,7 @@ def chatid(m):
         
 @bot.message_handler(commands=['donate'])
 def donatemes(m):
+ config.about(m, bot)
  return
  try:
   if m.from_user.id not in ban:
@@ -478,6 +502,7 @@ def donatemes(m):
 
 @bot.message_handler(commands=['removedailyuser'])
 def removedailyu(m): 
+ config.about(m, bot)
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -513,6 +538,7 @@ def removedailyu(m):
 @bot.message_handler(commands=['sendm'])
 def sendmes(message):
     m=message
+    config.about(m, bot)
     if message.from_user.id==441399484:
         x=idgroup.find({})
         y=iduser.find({})
@@ -539,6 +565,7 @@ def sendmes(message):
 @bot.message_handler(commands=['sendp'])
 def sendmesssss(message):
     m=message
+    config.about(m, bot)
     if message.from_user.id==441399484:
         y=iduser.find({})
         tex=message.text.split('/sendm')
@@ -569,6 +596,7 @@ def sendmesssss(message):
             
 @bot.message_handler(commands=['stoyak'])
 def biggest(m):
+ config.about(m, bot)
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -644,6 +672,7 @@ def turn3(id):
     
 @bot.message_handler(commands=['topchlens'])
 def topchlen(m):
+ config.about(m, bot)
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -682,6 +711,7 @@ def topchlen(m):
     
 @bot.message_handler(commands=['dailychlenreg'])
 def dailyr(m):
+ config.about(m, bot)
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -711,6 +741,7 @@ def dailyr(m):
 
 @bot.message_handler(commands=['usecoins'])
 def usecoins(m):
+ config.about(m, bot)
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -720,6 +751,7 @@ def usecoins(m):
     
 @bot.message_handler(commands=['mysize'])
 def size(m):
+ config.about(m, bot)
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -740,6 +772,7 @@ def size(m):
     
 @bot.message_handler(commands=['me'])
 def mme(m):
+ config.about(m, bot)
  try:
   if m.text.lower()=='/me' or m.text.lower()=='/me@chlenomerbot':
     if m.from_user.id not in ban:
@@ -759,6 +792,7 @@ def mme(m):
 def channel(message):
  try:
   m=message
+  config.about(m, bot)
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
     bot.send_message(message.chat.id, 'Канал обновлений: @chlenomer')
@@ -769,6 +803,7 @@ def channel(message):
 def startms(message):
  try:
   m=message
+  config.about(m, bot)
   if m.text.lower()=='/start' or m.text.lower()=='/start@chlenomerbot':
     if message.from_user.id not in ban:
       incmsg(message.from_user.id, message.chat.id, message.message_id)
@@ -780,6 +815,7 @@ def startms(message):
 @bot.message_handler(commands=['info'])
 def info(message):
     m=message
+    config.about(m, bot)
     if message.from_user.id==441399484:
       try:
         group=0
@@ -801,6 +837,7 @@ def info(message):
 def ticto(message):
  try:
   m=message
+  config.about(m, bot)
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
     bot.send_message(message.chat.id, 'Умеет менять размер члинуса')
@@ -809,6 +846,7 @@ def ticto(message):
         
 @bot.message_handler(commands=['name'])
 def name(m):
+ config.about(m, bot)
  try:
   if m.text.lower()=='/name' or m.text.lower()=='/name@chlenomerbot':
       if m.from_user.id not in ban:
@@ -842,6 +880,7 @@ def medit(message_text,chat_id, message_id,reply_markup=None,parse_mode='Markdow
         
 @bot.message_handler(commands=['buypet'])
 def buypet(m):
+ config.about(m, bot)
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -865,6 +904,7 @@ def buypet(m):
         
 @bot.message_handler(commands=['pethelp'])
 def pethelp(m):
+ config.about(m, bot)
  try:
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -879,6 +919,7 @@ def pethelp(m):
 def commessage(message):
  try:
   m=message
+  config.about(m, bot)
   if m.text.lower()=='/commands' or m.text.lower()=='/commands@chlenomerbot':
     if message.from_user.id not in ban:
       incmsg(message.from_user.id, message.chat.id, message.message_id)
@@ -892,6 +933,7 @@ def commessage(message):
 def feedback(message):
  try:
   m=message
+  config.about(m, bot)
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
     if message.from_user.username!=None:
@@ -927,6 +969,7 @@ def createdailyuser(id, name,username):
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
   m=message
+  config.about(m, bot)
 # global timerr
 # if timerr>=5:
   try:
