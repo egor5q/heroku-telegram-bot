@@ -57,7 +57,7 @@ def about(m, bot):
         threading.Thread(target = aboutt, args = [m, bot]).start()
         return
     except:
-        pass
+        return
 
     a_u = about_user.find_one({'id':m.from_user.id})
     if a_u == None:
