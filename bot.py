@@ -10,7 +10,6 @@ import traceback
 import requests
 import config
 
-
 client1=os.environ['database']
 client=MongoClient(client1)
 db=client.chlenomer
