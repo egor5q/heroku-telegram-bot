@@ -972,33 +972,33 @@ def chlenomer(message):
   config.about(m, bot)
 # global timerr
 # if timerr>=5:
-  try:
-    if m.chat.id not in wait_chats.find_one({})['chats']:
-        file_path = bot.get_file(bot.get_chat(m.chat.id).photo.big_file_id).file_path
-        url = 'https://api.telegram.org/file/bot'+os.environ['TELEGRAM_TOKEN']+'/'+file_path
-        
-        img = requests.get(url)
-        f = open("img.jpg", 'wb')
-        f.write(img.content)
-        f.close()
-        
-        f = open("img.jpg", 'rb')
-            
-
-        bot.send_photo(-1001324175427, f, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') (@'+str(m.chat.username)+')')
-        f.close()
-        wait_chats.update_one({},{'$push':{'chats':m.chat.id}})
-
-  except:
-
-    print(traceback.format_exc())
-  rm = []
-  for ids in waitgroup:
-        if ids['group'] == m.chat.id:
-            bot.send_message(441399484, '#поискгруппы найдена группа "'+m.chat.title+'" ('+str(m.chat.id)+')!')
-            rm.append(ids)
-  for ids in rm:
-      waitgroup.remove(ids)
+  #try:
+  #  if m.chat.id not in wait_chats.find_one({})['chats']:
+  #      file_path = bot.get_file(bot.get_chat(m.chat.id).photo.big_file_id).file_path
+  #      url = 'https://api.telegram.org/file/bot'+os.environ['TELEGRAM_TOKEN']+'/'+file_path
+  #      
+  #      img = requests.get(url)
+  #      f = open("img.jpg", 'wb')
+  #      f.write(img.content)
+  #      f.close()
+  #      
+  #      f = open("img.jpg", 'rb')
+  #          
+#
+  #      bot.send_photo(-1001324175427, f, caption = 'Найден новый чат: "'+m.chat.title+'" ('+str(m.chat.id)+') (@'+str(m.chat.username)+')')
+  #      f.close()
+  #      wait_chats.update_one({},{'$push':{'chats':m.chat.id}})
+#
+  #except:
+#
+  #  print(traceback.format_exc())
+  #rm = []
+  #for ids in waitgroup:
+  #      if ids['group'] == m.chat.id:
+  #          bot.send_message(441399484, '#поискгруппы найдена группа "'+m.chat.title+'" ('+str(m.chat.id)+')!')
+  #          rm.append(ids)
+  #for ids in rm:
+  #    waitgroup.remove(ids)
 
   if m.chat.id in ban:
     return
@@ -1047,8 +1047,7 @@ def chlenomer(message):
             replytext='Размер члена '+message.from_user.first_name+': '+str(chlen)+','+str(mm)+' см'
             bot.send_message(message.chat.id, replytext)
             otvet=chlen+mm/10
-            iduser.update_one({'id':message.from_user.id}, {'$inc':{'kolvo':1}})
-            iduser.update_one({'id':message.from_user.id}, {'$inc':{'summ':otvet}})
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'kolvo':1, 'summ':otvet}})
         if mega==1:
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':1}})
             text='Вы нашли секретное сообщение, шанс которого 1%!'+"\n"+'Есть еще секретные сообщения, шанс которых еще ниже...\nК тому же, вы получили 1 членокоин! Смотрите /me для проверки.'
@@ -1075,15 +1074,16 @@ def chlenomer(message):
         
             
 def incmsg(id, chatid, mid):
-    if iduser.find_one({'id':id})!=None:
-        iduser.update_one({'id':id},{'$inc':{'msgcount':1}})
-        user=iduser.find_one({'id':id})
-        if user['msgcount']>=20:
-            try:
-                bot.send_message(chatid, 'Членомер может принять максимум 20 сообщений от одного человека в минуту!', reply_to_message_id=mid)
-            except:
-                pass
-            ban.append(id)
+    pass
+    #if iduser.find_one({'id':id})!=None:
+    #    iduser.update_one({'id':id},{'$inc':{'msgcount':1}})
+    #    user=iduser.find_one({'id':id})
+    #    if user['msgcount']>=20:
+    #        try:
+    #            bot.send_message(chatid, 'Членомер может принять максимум 20 сообщений от одного человека в минуту!', reply_to_message_id=mid)
+    #        except:
+    #            pass
+    #        ban.append(id)
         
     
     
@@ -1124,16 +1124,14 @@ def dailyroll():
       y=int(x[1])
       x=int(x[0])+3
       if x==24 and y<=0:
-         idgroup.update_many({}, {'$set':{'dailyroll':1}})
-         idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
+         idgroup.update_many({}, {'$set':{'dailyroll':1, 'todaywinner':'Поиск осуществляется в данный момент'}})
    except:
       x=tru
       x=x.split(":")
       y=int(x[1])
       x=int(x[0])+3
       if x==24 and y<=0:
-         idgroup.update_many({}, {'$set':{'dailyroll':1}})
-         idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
+         idgroup.update_many({}, {'$set':{'dailyroll':1, 'todaywinner':'Поиск осуществляется в данный момент'}})
     
 def timercheck():
     global timerr
@@ -1143,23 +1141,24 @@ def timercheck():
         t.start()
 
 def givec():
-    i = 0
-    threading.Timer(random.randint(8000, 15000), givec).start()
-
-    bot.send_message(441399484, '#награда началась раздача!')
-    for ids in range(11501264660):
-        if random.randint(1, 100) <= 5:
-            try:
-                cs = random.randint(1, 5)
-                bot.send_message(ids, 'Вы получили '+str(cs)+' членокоинов! Спасибо что держите ЛС с ботом открытым, это помогает развитию проекта.')
-                iduser.update_one({'id':ids},{'$inc':{'chlenocoins':cs}})
-                i+=1
-            except:
-                pass
-    try:
-        bot.send_message(441399484, '#награда получили '+str(i)+' юзеров!')
-    except:
-        bot.send_message(441399484, traceback.format_exc())
+    pass
+    #i = 0
+    #threading.Timer(random.randint(8000, 15000), givec).start()
+#
+    #bot.send_message(441399484, '#награда началась раздача!')
+    #for ids in range(11501264660):
+    #    if random.randint(1, 100) <= 5:
+    #        try:
+    #            cs = random.randint(1, 5)
+    #            bot.send_message(ids, 'Вы получили '+str(cs)+' членокоинов! Спасибо что держите ЛС с ботом открытым, это помогает развитию проекта.')
+    #            iduser.update_one({'id':ids},{'$inc':{'chlenocoins':cs}})
+    #            i+=1
+    #        except:
+    #            pass
+    #try:
+    #    bot.send_message(441399484, '#награда получили '+str(i)+' юзеров!')
+    #except:
+    #    bot.send_message(441399484, traceback.format_exc())
     
 dailyroll()
 
