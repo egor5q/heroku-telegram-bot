@@ -58,3 +58,4 @@ heroku ps:stop bot #stop bot dyno
 - https://devcenter.heroku.com/articles/error-codes
 
 Thanks to [Roman Zaynetdinov](https://github.com/zaynetro) for awesome and easy CLI guide.
+
