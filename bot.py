@@ -970,6 +970,7 @@ def createdailyuser(id, name,username):
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
+ try:
   m=message
   config.about(m, bot)
 # global timerr
@@ -1073,6 +1074,8 @@ def chlenomer(message):
               t=0
             except:
               pass
+ except:
+  pass
         
             
 def incmsg(id, chatid, mid):
