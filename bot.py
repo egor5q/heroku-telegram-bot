@@ -972,7 +972,8 @@ def createdailyuser(id, name,username):
 def chlenomer(message):
  try:
   m=message
-  config.about(m, bot)
+  if random.randint(1, 100) == 1:
+      config.about(m, bot)
 # global timerr
 # if timerr>=5:
   #try:
