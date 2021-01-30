@@ -35,6 +35,7 @@ def creategroup(m, bot):
            }
 
 def aboutt(m, bot):
+    return
     a_u = about_user.find_one({'id':m.from_user.id})
     if a_u == None:
         about_user.insert_one(createabout(m))
@@ -55,6 +56,7 @@ def aboutt(m, bot):
 
 
 def about(m, bot):
+    return
     a_u = about_user.find_one({'id':m.from_user.id})
     if a_u == None:
         about_user.insert_one(createabout(m))
