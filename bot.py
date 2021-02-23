@@ -562,7 +562,7 @@ def removedailyu(m):
         bot.send_message(m.chat.id, 'Вы не админ чата!')
     
  except:
-  pass
+  bot.send_message(441399484, traceback.format_exc())
 
 
     
