@@ -1001,8 +1001,8 @@ def createdailyuser(id, name,username):
 def chlenomer(message):
  try:
   m=message
-  if random.randint(1, 100) == 1:
-      config.about(m, bot)
+  #if random.randint(1, 100) == 1:
+      #config.about(m, bot)
 # global timerr
 # if timerr>=5:
   #try:
@@ -1042,11 +1042,15 @@ def chlenomer(message):
   m=message
   if message.from_user.id not in ban and message.forward_from==None:
     if message.chat.id<0:
-      if idgroup.find_one({'id':message.chat.id}) is None:
+      g = idgroup.find_one({'id':message.chat.id})
+      if g is None:
         idgroup.insert_one(createchat(message.chat.id))
-      if iduser.find_one({'id':message.from_user.id}) is None:
+        g = idgroup.find_one({'id':message.chat.id})
+      iu = iduser.find_one({'id':message.from_user.id})
+      if iu is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
-      gr=idgroup.find_one({'id':m.chat.id})
+            
+      gr=g
       if str(message.from_user.id) in gr['topdaily']:
         try:
             if gr['topdaily'][str(message.from_user.id)]['name']!=message.from_user.first_name or gr['topdaily'][str(message.from_user.id)]['username']!=message.from_user.username:
