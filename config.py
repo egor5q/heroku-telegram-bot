@@ -21,6 +21,9 @@ def creategroup(m, bot):
 
 def aboutt(m, bot):
     return
+
+def about(m, bot):
+    return
     
     
     
