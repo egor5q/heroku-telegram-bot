@@ -59,6 +59,15 @@ massive=['Хер','хер','Член','член','Хуй','хуй']
 elita=[]
 
 
+@bot.message_handler(commands = ['leave'])
+def lllv(m):
+    if m.from_user.id != 441399484:
+        return
+    try:
+        bot.leave_chat(m.chat.id)
+    except:
+        bot.send_message(441399484, traceback.format_exc())
+
 @bot.message_handler(commands=['testreklama'])
 def testrekkk(m):
     if m.from_user.id != 441399484:
