@@ -1216,12 +1216,12 @@ print('7777')
 #timercheck()
 
 def poll():
-        bot.polling(none_stop=True,timeout=600)  
+        bot.infinity_polling()  
 
 
 while True:
     try:
-        bot.polling(none_stop=True)
+        bot.infinity_polling()
     except Exception as e:
         bot.send_message(441399484, traceback.format_exc())
 
